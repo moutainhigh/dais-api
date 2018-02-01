@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dais.mapper.FvirtualcaptualoperationMapper" >
+  <resultMap id="BaseResultMap" type="com.dais.model.Fvirtualcaptualoperation" >
+    <id column="fId" property="fid" jdbcType="INTEGER" />
+    <result column="FUs_fId2" property="fusFid2" jdbcType="INTEGER" />
+    <result column="fVi_fId2" property="fviFid2" jdbcType="INTEGER" />
+    <result column="fCreateTime" property="fcreatetime" jdbcType="TIMESTAMP" />
+    <result column="fAmount" property="famount" jdbcType="DECIMAL" />
+    <result column="ffees" property="ffees" jdbcType="DECIMAL" />
+    <result column="fType" property="ftype" jdbcType="INTEGER" />
+    <result column="fStatus" property="fstatus" jdbcType="INTEGER" />
+    <result column="flastUpdateTime" property="flastupdatetime" jdbcType="TIMESTAMP" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="withdraw_virtual_address" property="withdrawVirtualAddress" jdbcType="VARCHAR" />
+    <result column="recharge_virtual_address" property="rechargeVirtualAddress" jdbcType="VARCHAR" />
+    <result column="ftradeUniqueNumber" property="ftradeuniquenumber" jdbcType="VARCHAR" />
+    <result column="fconfirmations" property="fconfirmations" jdbcType="INTEGER" />
+    <result column="fhasOwner" property="fhasowner" jdbcType="BIT" />
+    <result column="ishomeshow" property="ishomeshow" jdbcType="BIT" />
+    <result column="blockindex" property="blockindex" jdbcType="INTEGER" />
+    <result column="is_system_account" property="isSystemAccount" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fId, FUs_fId2, fVi_fId2, fCreateTime, fAmount, ffees, fType, fStatus, flastUpdateTime, 
+    version, withdraw_virtual_address, recharge_virtual_address, ftradeUniqueNumber, 
+    fconfirmations, fhasOwner, ishomeshow, blockindex, is_system_account
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dais.model.FvirtualcaptualoperationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fvirtualcaptualoperation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fvirtualcaptualoperation
+    where fId = #{fid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fvirtualcaptualoperation
+    where fId = #{fid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dais.model.FvirtualcaptualoperationExample" >
+    delete from fvirtualcaptualoperation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dais.model.Fvirtualcaptualoperation" >
+    insert into fvirtualcaptualoperation (fId, FUs_fId2, fVi_fId2, 
+      fCreateTime, fAmount, ffees, 
+      fType, fStatus, flastUpdateTime, 
+      version, withdraw_virtual_address, recharge_virtual_address, 
+      ftradeUniqueNumber, fconfirmations, fhasOwner, 
+      ishomeshow, blockindex, is_system_account
+      )
+    values (#{fid,jdbcType=INTEGER}, #{fusFid2,jdbcType=INTEGER}, #{fviFid2,jdbcType=INTEGER}, 
+      #{fcreatetime,jdbcType=TIMESTAMP}, #{famount,jdbcType=DECIMAL}, #{ffees,jdbcType=DECIMAL}, 
+      #{ftype,jdbcType=INTEGER}, #{fstatus,jdbcType=INTEGER}, #{flastupdatetime,jdbcType=TIMESTAMP}, 
+      #{version,jdbcType=INTEGER}, #{withdrawVirtualAddress,jdbcType=VARCHAR}, #{rechargeVirtualAddress,jdbcType=VARCHAR}, 
+      #{ftradeuniquenumber,jdbcType=VARCHAR}, #{fconfirmations,jdbcType=INTEGER}, #{fhasowner,jdbcType=BIT}, 
+      #{ishomeshow,jdbcType=BIT}, #{blockindex,jdbcType=INTEGER}, #{isSystemAccount,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dais.model.Fvirtualcaptualoperation" >
+    <selectKey keyProperty='fid' resultType='int' order='AFTER'  >
+      select LAST_INSERT_ID();
+    </selectKey>
+    insert into fvirtualcaptualoperation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fId,
+      </if>
+      <if test="fusFid2 != null" >
+        FUs_fId2,
+      </if>
+      <if test="fviFid2 != null" >
+        fVi_fId2,
+      </if>
+      <if test="fcreatetime != null" >
+        fCreateTime,
+      </if>
+      <if test="famount != null" >
+        fAmount,
+      </if>
+      <if test="ffees != null" >
+        ffees,
+      </if>
+      <if test="ftype != null" >
+        fType,
+      </if>
+      <if test="fstatus != null" >
+        fStatus,
+      </if>
+      <if test="flastupdatetime != null" >
+        flastUpdateTime,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="withdrawVirtualAddress != null" >
+        withdraw_virtual_address,
+      </if>
+      <if test="rechargeVirtualAddress != null" >
+        recharge_virtual_address,
+      </if>
+      <if test="ftradeuniquenumber != null" >
+        ftradeUniqueNumber,
+      </if>
+      <if test="fconfirmations != null" >
+        fconfirmations,
+      </if>
+      <if test="fhasowner != null" >
+        fhasOwner,
+      </if>
+      <if test="ishomeshow != null" >
+        ishomeshow,
+      </if>
+      <if test="blockindex != null" >
+        blockindex,
+      </if>
+      <if test="isSystemAccount != null" >
+        is_system_account,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="fusFid2 != null" >
+        #{fusFid2,jdbcType=INTEGER},
+      </if>
+      <if test="fviFid2 != null" >
+        #{fviFid2,jdbcType=INTEGER},
+      </if>
+      <if test="fcreatetime != null" >
+        #{fcreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="famount != null" >
+        #{famount,jdbcType=DECIMAL},
+      </if>
+      <if test="ffees != null" >
+        #{ffees,jdbcType=DECIMAL},
+      </if>
+      <if test="ftype != null" >
+        #{ftype,jdbcType=INTEGER},
+      </if>
+      <if test="fstatus != null" >
+        #{fstatus,jdbcType=INTEGER},
+      </if>
+      <if test="flastupdatetime != null" >
+        #{flastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="withdrawVirtualAddress != null" >
+        #{withdrawVirtualAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeVirtualAddress != null" >
+        #{rechargeVirtualAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="ftradeuniquenumber != null" >
+        #{ftradeuniquenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="fconfirmations != null" >
+        #{fconfirmations,jdbcType=INTEGER},
+      </if>
+      <if test="fhasowner != null" >
+        #{fhasowner,jdbcType=BIT},
+      </if>
+      <if test="ishomeshow != null" >
+        #{ishomeshow,jdbcType=BIT},
+      </if>
+      <if test="blockindex != null" >
+        #{blockindex,jdbcType=INTEGER},
+      </if>
+      <if test="isSystemAccount != null" >
+        #{isSystemAccount,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dais.model.FvirtualcaptualoperationExample" resultType="java.lang.Integer" >
+    select count(*) from fvirtualcaptualoperation
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fvirtualcaptualoperation
+    <set >
+      <if test="record.fid != null" >
+        fId = #{record.fid,jdbcType=INTEGER},
+      </if>
+      <if test="record.fusFid2 != null" >
+        FUs_fId2 = #{record.fusFid2,jdbcType=INTEGER},
+      </if>
+      <if test="record.fviFid2 != null" >
+        fVi_fId2 = #{record.fviFid2,jdbcType=INTEGER},
+      </if>
+      <if test="record.fcreatetime != null" >
+        fCreateTime = #{record.fcreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.famount != null" >
+        fAmount = #{record.famount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ffees != null" >
+        ffees = #{record.ffees,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ftype != null" >
+        fType = #{record.ftype,jdbcType=INTEGER},
+      </if>
+      <if test="record.fstatus != null" >
+        fStatus = #{record.fstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.flastupdatetime != null" >
+        flastUpdateTime = #{record.flastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.version != null" >
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
+      <if test="record.withdrawVirtualAddress != null" >
+        withdraw_virtual_address = #{record.withdrawVirtualAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rechargeVirtualAddress != null" >
+        recharge_virtual_address = #{record.rechargeVirtualAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ftradeuniquenumber != null" >
+        ftradeUniqueNumber = #{record.ftradeuniquenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fconfirmations != null" >
+        fconfirmations = #{record.fconfirmations,jdbcType=INTEGER},
+      </if>
+      <if test="record.fhasowner != null" >
+        fhasOwner = #{record.fhasowner,jdbcType=BIT},
+      </if>
+      <if test="record.ishomeshow != null" >
+        ishomeshow = #{record.ishomeshow,jdbcType=BIT},
+      </if>
+      <if test="record.blockindex != null" >
+        blockindex = #{record.blockindex,jdbcType=INTEGER},
+      </if>
+      <if test="record.isSystemAccount != null" >
+        is_system_account = #{record.isSystemAccount,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fvirtualcaptualoperation
+    set fId = #{record.fid,jdbcType=INTEGER},
+      FUs_fId2 = #{record.fusFid2,jdbcType=INTEGER},
+      fVi_fId2 = #{record.fviFid2,jdbcType=INTEGER},
+      fCreateTime = #{record.fcreatetime,jdbcType=TIMESTAMP},
+      fAmount = #{record.famount,jdbcType=DECIMAL},
+      ffees = #{record.ffees,jdbcType=DECIMAL},
+      fType = #{record.ftype,jdbcType=INTEGER},
+      fStatus = #{record.fstatus,jdbcType=INTEGER},
+      flastUpdateTime = #{record.flastupdatetime,jdbcType=TIMESTAMP},
+      version = #{record.version,jdbcType=INTEGER},
+      withdraw_virtual_address = #{record.withdrawVirtualAddress,jdbcType=VARCHAR},
+      recharge_virtual_address = #{record.rechargeVirtualAddress,jdbcType=VARCHAR},
+      ftradeUniqueNumber = #{record.ftradeuniquenumber,jdbcType=VARCHAR},
+      fconfirmations = #{record.fconfirmations,jdbcType=INTEGER},
+      fhasOwner = #{record.fhasowner,jdbcType=BIT},
+      ishomeshow = #{record.ishomeshow,jdbcType=BIT},
+      blockindex = #{record.blockindex,jdbcType=INTEGER},
+      is_system_account = #{record.isSystemAccount,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dais.model.Fvirtualcaptualoperation" >
+    update fvirtualcaptualoperation
+    <set >
+      <if test="fusFid2 != null" >
+        FUs_fId2 = #{fusFid2,jdbcType=INTEGER},
+      </if>
+      <if test="fviFid2 != null" >
+        fVi_fId2 = #{fviFid2,jdbcType=INTEGER},
+      </if>
+      <if test="fcreatetime != null" >
+        fCreateTime = #{fcreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="famount != null" >
+        fAmount = #{famount,jdbcType=DECIMAL},
+      </if>
+      <if test="ffees != null" >
+        ffees = #{ffees,jdbcType=DECIMAL},
+      </if>
+      <if test="ftype != null" >
+        fType = #{ftype,jdbcType=INTEGER},
+      </if>
+      <if test="fstatus != null" >
+        fStatus = #{fstatus,jdbcType=INTEGER},
+      </if>
+      <if test="flastupdatetime != null" >
+        flastUpdateTime = #{flastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="withdrawVirtualAddress != null" >
+        withdraw_virtual_address = #{withdrawVirtualAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeVirtualAddress != null" >
+        recharge_virtual_address = #{rechargeVirtualAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="ftradeuniquenumber != null" >
+        ftradeUniqueNumber = #{ftradeuniquenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="fconfirmations != null" >
+        fconfirmations = #{fconfirmations,jdbcType=INTEGER},
+      </if>
+      <if test="fhasowner != null" >
+        fhasOwner = #{fhasowner,jdbcType=BIT},
+      </if>
+      <if test="ishomeshow != null" >
+        ishomeshow = #{ishomeshow,jdbcType=BIT},
+      </if>
+      <if test="blockindex != null" >
+        blockindex = #{blockindex,jdbcType=INTEGER},
+      </if>
+      <if test="isSystemAccount != null" >
+        is_system_account = #{isSystemAccount,jdbcType=BIT},
+      </if>
+    </set>
+    where fId = #{fid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dais.model.Fvirtualcaptualoperation" >
+    update fvirtualcaptualoperation
+    set FUs_fId2 = #{fusFid2,jdbcType=INTEGER},
+      fVi_fId2 = #{fviFid2,jdbcType=INTEGER},
+      fCreateTime = #{fcreatetime,jdbcType=TIMESTAMP},
+      fAmount = #{famount,jdbcType=DECIMAL},
+      ffees = #{ffees,jdbcType=DECIMAL},
+      fType = #{ftype,jdbcType=INTEGER},
+      fStatus = #{fstatus,jdbcType=INTEGER},
+      flastUpdateTime = #{flastupdatetime,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=INTEGER},
+      withdraw_virtual_address = #{withdrawVirtualAddress,jdbcType=VARCHAR},
+      recharge_virtual_address = #{rechargeVirtualAddress,jdbcType=VARCHAR},
+      ftradeUniqueNumber = #{ftradeuniquenumber,jdbcType=VARCHAR},
+      fconfirmations = #{fconfirmations,jdbcType=INTEGER},
+      fhasOwner = #{fhasowner,jdbcType=BIT},
+      ishomeshow = #{ishomeshow,jdbcType=BIT},
+      blockindex = #{blockindex,jdbcType=INTEGER},
+      is_system_account = #{isSystemAccount,jdbcType=BIT}
+    where fId = #{fid,jdbcType=INTEGER}
+  </update>
+</mapper>

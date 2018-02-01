@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dais.mapper.FvirtualwalletMapper" >
+  <resultMap id="BaseResultMap" type="com.dais.model.Fvirtualwallet" >
+    <id column="fId" property="fid" jdbcType="INTEGER" />
+    <result column="fVi_fId" property="fviFid" jdbcType="INTEGER" />
+    <result column="fTotal" property="ftotal" jdbcType="DECIMAL" />
+    <result column="fFrozen" property="ffrozen" jdbcType="DECIMAL" />
+    <result column="fLastUpdateTime" property="flastupdatetime" jdbcType="TIMESTAMP" />
+    <result column="fuid" property="fuid" jdbcType="INTEGER" />
+    <result column="fBorrowBtc" property="fborrowbtc" jdbcType="DECIMAL" />
+    <result column="fCanlendBtc" property="fcanlendbtc" jdbcType="DECIMAL" />
+    <result column="fFrozenLendBtc" property="ffrozenlendbtc" jdbcType="DECIMAL" />
+    <result column="fAlreadyLendBtc" property="falreadylendbtc" jdbcType="DECIMAL" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="fHaveAppointBorrowBtc" property="fhaveappointborrowbtc" jdbcType="DECIMAL" />
+    <result column="ishow" property="ishow" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fId, fVi_fId, fTotal, fFrozen, fLastUpdateTime, fuid, fBorrowBtc, fCanlendBtc, fFrozenLendBtc, 
+    fAlreadyLendBtc, version, fHaveAppointBorrowBtc, ishow
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dais.model.FvirtualwalletExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fvirtualwallet
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fvirtualwallet
+    where fId = #{fid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fvirtualwallet
+    where fId = #{fid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dais.model.FvirtualwalletExample" >
+    delete from fvirtualwallet
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dais.model.Fvirtualwallet" >
+    insert into fvirtualwallet (fId, fVi_fId, fTotal, 
+      fFrozen, fLastUpdateTime, fuid, 
+      fBorrowBtc, fCanlendBtc, fFrozenLendBtc, 
+      fAlreadyLendBtc, version, fHaveAppointBorrowBtc, 
+      ishow)
+    values (#{fid,jdbcType=INTEGER}, #{fviFid,jdbcType=INTEGER}, #{ftotal,jdbcType=DECIMAL}, 
+      #{ffrozen,jdbcType=DECIMAL}, #{flastupdatetime,jdbcType=TIMESTAMP}, #{fuid,jdbcType=INTEGER}, 
+      #{fborrowbtc,jdbcType=DECIMAL}, #{fcanlendbtc,jdbcType=DECIMAL}, #{ffrozenlendbtc,jdbcType=DECIMAL}, 
+      #{falreadylendbtc,jdbcType=DECIMAL}, #{version,jdbcType=INTEGER}, #{fhaveappointborrowbtc,jdbcType=DECIMAL}, 
+      #{ishow,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dais.model.Fvirtualwallet" >
+    <selectKey keyProperty='fid' resultType='int' order='AFTER'  >
+      select LAST_INSERT_ID();
+    </selectKey>
+    insert into fvirtualwallet
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fId,
+      </if>
+      <if test="fviFid != null" >
+        fVi_fId,
+      </if>
+      <if test="ftotal != null" >
+        fTotal,
+      </if>
+      <if test="ffrozen != null" >
+        fFrozen,
+      </if>
+      <if test="flastupdatetime != null" >
+        fLastUpdateTime,
+      </if>
+      <if test="fuid != null" >
+        fuid,
+      </if>
+      <if test="fborrowbtc != null" >
+        fBorrowBtc,
+      </if>
+      <if test="fcanlendbtc != null" >
+        fCanlendBtc,
+      </if>
+      <if test="ffrozenlendbtc != null" >
+        fFrozenLendBtc,
+      </if>
+      <if test="falreadylendbtc != null" >
+        fAlreadyLendBtc,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="fhaveappointborrowbtc != null" >
+        fHaveAppointBorrowBtc,
+      </if>
+      <if test="ishow != null" >
+        ishow,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="fviFid != null" >
+        #{fviFid,jdbcType=INTEGER},
+      </if>
+      <if test="ftotal != null" >
+        #{ftotal,jdbcType=DECIMAL},
+      </if>
+      <if test="ffrozen != null" >
+        #{ffrozen,jdbcType=DECIMAL},
+      </if>
+      <if test="flastupdatetime != null" >
+        #{flastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fuid != null" >
+        #{fuid,jdbcType=INTEGER},
+      </if>
+      <if test="fborrowbtc != null" >
+        #{fborrowbtc,jdbcType=DECIMAL},
+      </if>
+      <if test="fcanlendbtc != null" >
+        #{fcanlendbtc,jdbcType=DECIMAL},
+      </if>
+      <if test="ffrozenlendbtc != null" >
+        #{ffrozenlendbtc,jdbcType=DECIMAL},
+      </if>
+      <if test="falreadylendbtc != null" >
+        #{falreadylendbtc,jdbcType=DECIMAL},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="fhaveappointborrowbtc != null" >
+        #{fhaveappointborrowbtc,jdbcType=DECIMAL},
+      </if>
+      <if test="ishow != null" >
+        #{ishow,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dais.model.FvirtualwalletExample" resultType="java.lang.Integer" >
+    select count(*) from fvirtualwallet
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fvirtualwallet
+    <set >
+      <if test="record.fid != null" >
+        fId = #{record.fid,jdbcType=INTEGER},
+      </if>
+      <if test="record.fviFid != null" >
+        fVi_fId = #{record.fviFid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ftotal != null" >
+        fTotal = #{record.ftotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ffrozen != null" >
+        fFrozen = #{record.ffrozen,jdbcType=DECIMAL},
+      </if>
+      <if test="record.flastupdatetime != null" >
+        fLastUpdateTime = #{record.flastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fuid != null" >
+        fuid = #{record.fuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.fborrowbtc != null" >
+        fBorrowBtc = #{record.fborrowbtc,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fcanlendbtc != null" >
+        fCanlendBtc = #{record.fcanlendbtc,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ffrozenlendbtc != null" >
+        fFrozenLendBtc = #{record.ffrozenlendbtc,jdbcType=DECIMAL},
+      </if>
+      <if test="record.falreadylendbtc != null" >
+        fAlreadyLendBtc = #{record.falreadylendbtc,jdbcType=DECIMAL},
+      </if>
+      <if test="record.version != null" >
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
+      <if test="record.fhaveappointborrowbtc != null" >
+        fHaveAppointBorrowBtc = #{record.fhaveappointborrowbtc,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ishow != null" >
+        ishow = #{record.ishow,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fvirtualwallet
+    set fId = #{record.fid,jdbcType=INTEGER},
+      fVi_fId = #{record.fviFid,jdbcType=INTEGER},
+      fTotal = #{record.ftotal,jdbcType=DECIMAL},
+      fFrozen = #{record.ffrozen,jdbcType=DECIMAL},
+      fLastUpdateTime = #{record.flastupdatetime,jdbcType=TIMESTAMP},
+      fuid = #{record.fuid,jdbcType=INTEGER},
+      fBorrowBtc = #{record.fborrowbtc,jdbcType=DECIMAL},
+      fCanlendBtc = #{record.fcanlendbtc,jdbcType=DECIMAL},
+      fFrozenLendBtc = #{record.ffrozenlendbtc,jdbcType=DECIMAL},
+      fAlreadyLendBtc = #{record.falreadylendbtc,jdbcType=DECIMAL},
+      version = #{record.version,jdbcType=INTEGER},
+      fHaveAppointBorrowBtc = #{record.fhaveappointborrowbtc,jdbcType=DECIMAL},
+      ishow = #{record.ishow,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dais.model.Fvirtualwallet" >
+    update fvirtualwallet
+    <set >
+      <if test="fviFid != null" >
+        fVi_fId = #{fviFid,jdbcType=INTEGER},
+      </if>
+      <if test="ftotal != null" >
+        fTotal = #{ftotal,jdbcType=DECIMAL},
+      </if>
+      <if test="ffrozen != null" >
+        fFrozen = #{ffrozen,jdbcType=DECIMAL},
+      </if>
+      <if test="flastupdatetime != null" >
+        fLastUpdateTime = #{flastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fuid != null" >
+        fuid = #{fuid,jdbcType=INTEGER},
+      </if>
+      <if test="fborrowbtc != null" >
+        fBorrowBtc = #{fborrowbtc,jdbcType=DECIMAL},
+      </if>
+      <if test="fcanlendbtc != null" >
+        fCanlendBtc = #{fcanlendbtc,jdbcType=DECIMAL},
+      </if>
+      <if test="ffrozenlendbtc != null" >
+        fFrozenLendBtc = #{ffrozenlendbtc,jdbcType=DECIMAL},
+      </if>
+      <if test="falreadylendbtc != null" >
+        fAlreadyLendBtc = #{falreadylendbtc,jdbcType=DECIMAL},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="fhaveappointborrowbtc != null" >
+        fHaveAppointBorrowBtc = #{fhaveappointborrowbtc,jdbcType=DECIMAL},
+      </if>
+      <if test="ishow != null" >
+        ishow = #{ishow,jdbcType=BIT},
+      </if>
+    </set>
+    where fId = #{fid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dais.model.Fvirtualwallet" >
+    update fvirtualwallet
+    set fVi_fId = #{fviFid,jdbcType=INTEGER},
+      fTotal = #{ftotal,jdbcType=DECIMAL},
+      fFrozen = #{ffrozen,jdbcType=DECIMAL},
+      fLastUpdateTime = #{flastupdatetime,jdbcType=TIMESTAMP},
+      fuid = #{fuid,jdbcType=INTEGER},
+      fBorrowBtc = #{fborrowbtc,jdbcType=DECIMAL},
+      fCanlendBtc = #{fcanlendbtc,jdbcType=DECIMAL},
+      fFrozenLendBtc = #{ffrozenlendbtc,jdbcType=DECIMAL},
+      fAlreadyLendBtc = #{falreadylendbtc,jdbcType=DECIMAL},
+      version = #{version,jdbcType=INTEGER},
+      fHaveAppointBorrowBtc = #{fhaveappointborrowbtc,jdbcType=DECIMAL},
+      ishow = #{ishow,jdbcType=BIT}
+    where fId = #{fid,jdbcType=INTEGER}
+  </update>
+</mapper>

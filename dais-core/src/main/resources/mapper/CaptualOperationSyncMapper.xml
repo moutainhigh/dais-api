@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dais.mapper.CaptualOperationSyncMapper" >
+  <resultMap id="BaseResultMap" type="com.dais.model.CaptualOperationSync" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="coin_name" property="coinName" jdbcType="VARCHAR" />
+    <result column="operation_id" property="operationId" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="symbol" property="symbol" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="fees" property="fees" jdbcType="DECIMAL" />
+    <result column="opertion_type" property="opertionType" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="last_updatetime" property="lastUpdatetime" jdbcType="TIMESTAMP" />
+    <result column="withdraw_virtual_address" property="withdrawVirtualAddress" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
+    <result column="recharge_virtual_address" property="rechargeVirtualAddress" jdbcType="VARCHAR" />
+    <result column="ftradeUniqueNumber" property="ftradeuniquenumber" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, coin_name, operation_id, userid, symbol, createtime, amount, fees, opertion_type, 
+    status, last_updatetime, withdraw_virtual_address, user_name, user_phone, recharge_virtual_address, 
+    ftradeUniqueNumber
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dais.model.CaptualOperationSyncExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from captualoperationsync
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from captualoperationsync
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from captualoperationsync
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dais.model.CaptualOperationSyncExample" >
+    delete from captualoperationsync
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dais.model.CaptualOperationSync" >
+    insert into captualoperationsync (id, coin_name, operation_id, 
+      userid, symbol, createtime, 
+      amount, fees, opertion_type, 
+      status, last_updatetime, withdraw_virtual_address, 
+      user_name, user_phone, recharge_virtual_address, 
+      ftradeUniqueNumber)
+    values (#{id,jdbcType=INTEGER}, #{coinName,jdbcType=VARCHAR}, #{operationId,jdbcType=INTEGER}, 
+      #{userid,jdbcType=INTEGER}, #{symbol,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{amount,jdbcType=DECIMAL}, #{fees,jdbcType=DECIMAL}, #{opertionType,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{lastUpdatetime,jdbcType=TIMESTAMP}, #{withdrawVirtualAddress,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, #{rechargeVirtualAddress,jdbcType=VARCHAR}, 
+      #{ftradeuniquenumber,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dais.model.CaptualOperationSync" >
+    insert into captualoperationsync
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="coinName != null" >
+        coin_name,
+      </if>
+      <if test="operationId != null" >
+        operation_id,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="symbol != null" >
+        symbol,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="fees != null" >
+        fees,
+      </if>
+      <if test="opertionType != null" >
+        opertion_type,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="lastUpdatetime != null" >
+        last_updatetime,
+      </if>
+      <if test="withdrawVirtualAddress != null" >
+        withdraw_virtual_address,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userPhone != null" >
+        user_phone,
+      </if>
+      <if test="rechargeVirtualAddress != null" >
+        recharge_virtual_address,
+      </if>
+      <if test="ftradeuniquenumber != null" >
+        ftradeUniqueNumber,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="coinName != null" >
+        #{coinName,jdbcType=VARCHAR},
+      </if>
+      <if test="operationId != null" >
+        #{operationId,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="symbol != null" >
+        #{symbol,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="fees != null" >
+        #{fees,jdbcType=DECIMAL},
+      </if>
+      <if test="opertionType != null" >
+        #{opertionType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="lastUpdatetime != null" >
+        #{lastUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="withdrawVirtualAddress != null" >
+        #{withdrawVirtualAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null" >
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeVirtualAddress != null" >
+        #{rechargeVirtualAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="ftradeuniquenumber != null" >
+        #{ftradeuniquenumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dais.model.CaptualOperationSyncExample" resultType="java.lang.Integer" >
+    select count(*) from captualoperationsync
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update captualoperationsync
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.coinName != null" >
+        coin_name = #{record.coinName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operationId != null" >
+        operation_id = #{record.operationId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.symbol != null" >
+        symbol = #{record.symbol,jdbcType=INTEGER},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.amount != null" >
+        amount = #{record.amount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fees != null" >
+        fees = #{record.fees,jdbcType=DECIMAL},
+      </if>
+      <if test="record.opertionType != null" >
+        opertion_type = #{record.opertionType,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastUpdatetime != null" >
+        last_updatetime = #{record.lastUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.withdrawVirtualAddress != null" >
+        withdraw_virtual_address = #{record.withdrawVirtualAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPhone != null" >
+        user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rechargeVirtualAddress != null" >
+        recharge_virtual_address = #{record.rechargeVirtualAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ftradeuniquenumber != null" >
+        ftradeUniqueNumber = #{record.ftradeuniquenumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update captualoperationsync
+    set id = #{record.id,jdbcType=INTEGER},
+      coin_name = #{record.coinName,jdbcType=VARCHAR},
+      operation_id = #{record.operationId,jdbcType=INTEGER},
+      userid = #{record.userid,jdbcType=INTEGER},
+      symbol = #{record.symbol,jdbcType=INTEGER},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      amount = #{record.amount,jdbcType=DECIMAL},
+      fees = #{record.fees,jdbcType=DECIMAL},
+      opertion_type = #{record.opertionType,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      last_updatetime = #{record.lastUpdatetime,jdbcType=TIMESTAMP},
+      withdraw_virtual_address = #{record.withdrawVirtualAddress,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      recharge_virtual_address = #{record.rechargeVirtualAddress,jdbcType=VARCHAR},
+      ftradeUniqueNumber = #{record.ftradeuniquenumber,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dais.model.CaptualOperationSync" >
+    update captualoperationsync
+    <set >
+      <if test="coinName != null" >
+        coin_name = #{coinName,jdbcType=VARCHAR},
+      </if>
+      <if test="operationId != null" >
+        operation_id = #{operationId,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="symbol != null" >
+        symbol = #{symbol,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="fees != null" >
+        fees = #{fees,jdbcType=DECIMAL},
+      </if>
+      <if test="opertionType != null" >
+        opertion_type = #{opertionType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="lastUpdatetime != null" >
+        last_updatetime = #{lastUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="withdrawVirtualAddress != null" >
+        withdraw_virtual_address = #{withdrawVirtualAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null" >
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeVirtualAddress != null" >
+        recharge_virtual_address = #{rechargeVirtualAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="ftradeuniquenumber != null" >
+        ftradeUniqueNumber = #{ftradeuniquenumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dais.model.CaptualOperationSync" >
+    update captualoperationsync
+    set coin_name = #{coinName,jdbcType=VARCHAR},
+      operation_id = #{operationId,jdbcType=INTEGER},
+      userid = #{userid,jdbcType=INTEGER},
+      symbol = #{symbol,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      amount = #{amount,jdbcType=DECIMAL},
+      fees = #{fees,jdbcType=DECIMAL},
+      opertion_type = #{opertionType,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      last_updatetime = #{lastUpdatetime,jdbcType=TIMESTAMP},
+      withdraw_virtual_address = #{withdrawVirtualAddress,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      recharge_virtual_address = #{rechargeVirtualAddress,jdbcType=VARCHAR},
+      ftradeUniqueNumber = #{ftradeuniquenumber,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

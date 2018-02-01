@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dais.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.dais.model.User" >
+    <id column="fid" property="fid" jdbcType="INTEGER" />
+    <result column="fnick_name" property="fnickName" jdbcType="VARCHAR" />
+    <result column="freal_name" property="frealName" jdbcType="VARCHAR" />
+    <result column="ftele_phone" property="ftelePhone" jdbcType="VARCHAR" />
+    <result column="femail" property="femail" jdbcType="VARCHAR" />
+    <result column="flogin_password" property="floginPassword" jdbcType="VARCHAR" />
+    <result column="ftrade_password" property="ftradePassword" jdbcType="VARCHAR" />
+    <result column="flogin_name" property="floginName" jdbcType="VARCHAR" />
+    <result column="fold_login_name" property="foldLoginName" jdbcType="VARCHAR" />
+    <result column="fidentity_no" property="fidentityNo" jdbcType="VARCHAR" />
+    <result column="fidentity_type" property="fidentityType" jdbcType="INTEGER" />
+    <result column="fregister_time" property="fregisterTime" jdbcType="TIMESTAMP" />
+    <result column="flast_login_time" property="flastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="flast_update_time" property="flastUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="fhas_real_validate" property="fhasRealValidate" jdbcType="BIT" />
+    <result column="fis_telephone_bind" property="fisTelephoneBind" jdbcType="BIT" />
+    <result column="fis_mail_validate" property="fisMailValidate" jdbcType="BIT" />
+    <result column="fpost_real_validate" property="fpostRealValidate" jdbcType="BIT" />
+    <result column="has_pay_pwd" property="hasPayPwd" jdbcType="BIT" />
+    <result column="fhas_real_validate_time" property="fhasRealValidateTime" jdbcType="TIMESTAMP" />
+    <result column="auth_status" property="authStatus" jdbcType="INTEGER" />
+    <result column="fidentity_status" property="fidentityStatus" jdbcType="INTEGER" />
+    <result column="fidentity_path" property="fidentityPath" jdbcType="VARCHAR" />
+    <result column="fidentity_path2" property="fidentityPath2" jdbcType="VARCHAR" />
+    <result column="fidentity_path3" property="fidentityPath3" jdbcType="VARCHAR" />
+    <result column="mem_words" property="memWords" jdbcType="VARCHAR" />
+    <result column="fhead_img_url" property="fheadImgUrl" jdbcType="VARCHAR" />
+    <result column="token" property="token" jdbcType="VARCHAR" />
+    <result column="gag_time" property="gagTime" jdbcType="TIMESTAMP" />
+    <result column="wallet_status" property="walletStatus" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fid, fnick_name, freal_name, ftele_phone, femail, flogin_password, ftrade_password, 
+    flogin_name, fold_login_name, fidentity_no, fidentity_type, fregister_time, flast_login_time, 
+    flast_update_time, fhas_real_validate, fis_telephone_bind, fis_mail_validate, fpost_real_validate, 
+    has_pay_pwd, fhas_real_validate_time, auth_status, fidentity_status, fidentity_path, 
+    fidentity_path2, fidentity_path3, mem_words, fhead_img_url, token, gag_time, wallet_status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dais.model.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where fid = #{fid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where fid = #{fid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dais.model.UserExample" >
+    delete from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dais.model.User" >
+    insert into user (fid, fnick_name, freal_name, 
+      ftele_phone, femail, flogin_password, 
+      ftrade_password, flogin_name, fold_login_name, 
+      fidentity_no, fidentity_type, fregister_time, 
+      flast_login_time, flast_update_time, fhas_real_validate, 
+      fis_telephone_bind, fis_mail_validate, fpost_real_validate, 
+      has_pay_pwd, fhas_real_validate_time, auth_status, 
+      fidentity_status, fidentity_path, fidentity_path2, 
+      fidentity_path3, mem_words, fhead_img_url, 
+      token, gag_time, wallet_status
+      )
+    values (#{fid,jdbcType=INTEGER}, #{fnickName,jdbcType=VARCHAR}, #{frealName,jdbcType=VARCHAR}, 
+      #{ftelePhone,jdbcType=VARCHAR}, #{femail,jdbcType=VARCHAR}, #{floginPassword,jdbcType=VARCHAR}, 
+      #{ftradePassword,jdbcType=VARCHAR}, #{floginName,jdbcType=VARCHAR}, #{foldLoginName,jdbcType=VARCHAR}, 
+      #{fidentityNo,jdbcType=VARCHAR}, #{fidentityType,jdbcType=INTEGER}, #{fregisterTime,jdbcType=TIMESTAMP}, 
+      #{flastLoginTime,jdbcType=TIMESTAMP}, #{flastUpdateTime,jdbcType=TIMESTAMP}, #{fhasRealValidate,jdbcType=BIT}, 
+      #{fisTelephoneBind,jdbcType=BIT}, #{fisMailValidate,jdbcType=BIT}, #{fpostRealValidate,jdbcType=BIT}, 
+      #{hasPayPwd,jdbcType=BIT}, #{fhasRealValidateTime,jdbcType=TIMESTAMP}, #{authStatus,jdbcType=INTEGER}, 
+      #{fidentityStatus,jdbcType=INTEGER}, #{fidentityPath,jdbcType=VARCHAR}, #{fidentityPath2,jdbcType=VARCHAR}, 
+      #{fidentityPath3,jdbcType=VARCHAR}, #{memWords,jdbcType=VARCHAR}, #{fheadImgUrl,jdbcType=VARCHAR}, 
+      #{token,jdbcType=VARCHAR}, #{gagTime,jdbcType=TIMESTAMP}, #{walletStatus,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dais.model.User" >
+    <selectKey keyProperty='fid' resultType='int' order='AFTER'  >
+      select LAST_INSERT_ID();
+    </selectKey>
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="fnickName != null" >
+        fnick_name,
+      </if>
+      <if test="frealName != null" >
+        freal_name,
+      </if>
+      <if test="ftelePhone != null" >
+        ftele_phone,
+      </if>
+      <if test="femail != null" >
+        femail,
+      </if>
+      <if test="floginPassword != null" >
+        flogin_password,
+      </if>
+      <if test="ftradePassword != null" >
+        ftrade_password,
+      </if>
+      <if test="floginName != null" >
+        flogin_name,
+      </if>
+      <if test="foldLoginName != null" >
+        fold_login_name,
+      </if>
+      <if test="fidentityNo != null" >
+        fidentity_no,
+      </if>
+      <if test="fidentityType != null" >
+        fidentity_type,
+      </if>
+      <if test="fregisterTime != null" >
+        fregister_time,
+      </if>
+      <if test="flastLoginTime != null" >
+        flast_login_time,
+      </if>
+      <if test="flastUpdateTime != null" >
+        flast_update_time,
+      </if>
+      <if test="fhasRealValidate != null" >
+        fhas_real_validate,
+      </if>
+      <if test="fisTelephoneBind != null" >
+        fis_telephone_bind,
+      </if>
+      <if test="fisMailValidate != null" >
+        fis_mail_validate,
+      </if>
+      <if test="fpostRealValidate != null" >
+        fpost_real_validate,
+      </if>
+      <if test="hasPayPwd != null" >
+        has_pay_pwd,
+      </if>
+      <if test="fhasRealValidateTime != null" >
+        fhas_real_validate_time,
+      </if>
+      <if test="authStatus != null" >
+        auth_status,
+      </if>
+      <if test="fidentityStatus != null" >
+        fidentity_status,
+      </if>
+      <if test="fidentityPath != null" >
+        fidentity_path,
+      </if>
+      <if test="fidentityPath2 != null" >
+        fidentity_path2,
+      </if>
+      <if test="fidentityPath3 != null" >
+        fidentity_path3,
+      </if>
+      <if test="memWords != null" >
+        mem_words,
+      </if>
+      <if test="fheadImgUrl != null" >
+        fhead_img_url,
+      </if>
+      <if test="token != null" >
+        token,
+      </if>
+      <if test="gagTime != null" >
+        gag_time,
+      </if>
+      <if test="walletStatus != null" >
+        wallet_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="fnickName != null" >
+        #{fnickName,jdbcType=VARCHAR},
+      </if>
+      <if test="frealName != null" >
+        #{frealName,jdbcType=VARCHAR},
+      </if>
+      <if test="ftelePhone != null" >
+        #{ftelePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="femail != null" >
+        #{femail,jdbcType=VARCHAR},
+      </if>
+      <if test="floginPassword != null" >
+        #{floginPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="ftradePassword != null" >
+        #{ftradePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="floginName != null" >
+        #{floginName,jdbcType=VARCHAR},
+      </if>
+      <if test="foldLoginName != null" >
+        #{foldLoginName,jdbcType=VARCHAR},
+      </if>
+      <if test="fidentityNo != null" >
+        #{fidentityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fidentityType != null" >
+        #{fidentityType,jdbcType=INTEGER},
+      </if>
+      <if test="fregisterTime != null" >
+        #{fregisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flastLoginTime != null" >
+        #{flastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flastUpdateTime != null" >
+        #{flastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fhasRealValidate != null" >
+        #{fhasRealValidate,jdbcType=BIT},
+      </if>
+      <if test="fisTelephoneBind != null" >
+        #{fisTelephoneBind,jdbcType=BIT},
+      </if>
+      <if test="fisMailValidate != null" >
+        #{fisMailValidate,jdbcType=BIT},
+      </if>
+      <if test="fpostRealValidate != null" >
+        #{fpostRealValidate,jdbcType=BIT},
+      </if>
+      <if test="hasPayPwd != null" >
+        #{hasPayPwd,jdbcType=BIT},
+      </if>
+      <if test="fhasRealValidateTime != null" >
+        #{fhasRealValidateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authStatus != null" >
+        #{authStatus,jdbcType=INTEGER},
+      </if>
+      <if test="fidentityStatus != null" >
+        #{fidentityStatus,jdbcType=INTEGER},
+      </if>
+      <if test="fidentityPath != null" >
+        #{fidentityPath,jdbcType=VARCHAR},
+      </if>
+      <if test="fidentityPath2 != null" >
+        #{fidentityPath2,jdbcType=VARCHAR},
+      </if>
+      <if test="fidentityPath3 != null" >
+        #{fidentityPath3,jdbcType=VARCHAR},
+      </if>
+      <if test="memWords != null" >
+        #{memWords,jdbcType=VARCHAR},
+      </if>
+      <if test="fheadImgUrl != null" >
+        #{fheadImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="gagTime != null" >
+        #{gagTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="walletStatus != null" >
+        #{walletStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dais.model.UserExample" resultType="java.lang.Integer" >
+    select count(*) from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user
+    <set >
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=INTEGER},
+      </if>
+      <if test="record.fnickName != null" >
+        fnick_name = #{record.fnickName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.frealName != null" >
+        freal_name = #{record.frealName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ftelePhone != null" >
+        ftele_phone = #{record.ftelePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.femail != null" >
+        femail = #{record.femail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floginPassword != null" >
+        flogin_password = #{record.floginPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ftradePassword != null" >
+        ftrade_password = #{record.ftradePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floginName != null" >
+        flogin_name = #{record.floginName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.foldLoginName != null" >
+        fold_login_name = #{record.foldLoginName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fidentityNo != null" >
+        fidentity_no = #{record.fidentityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fidentityType != null" >
+        fidentity_type = #{record.fidentityType,jdbcType=INTEGER},
+      </if>
+      <if test="record.fregisterTime != null" >
+        fregister_time = #{record.fregisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.flastLoginTime != null" >
+        flast_login_time = #{record.flastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.flastUpdateTime != null" >
+        flast_update_time = #{record.flastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fhasRealValidate != null" >
+        fhas_real_validate = #{record.fhasRealValidate,jdbcType=BIT},
+      </if>
+      <if test="record.fisTelephoneBind != null" >
+        fis_telephone_bind = #{record.fisTelephoneBind,jdbcType=BIT},
+      </if>
+      <if test="record.fisMailValidate != null" >
+        fis_mail_validate = #{record.fisMailValidate,jdbcType=BIT},
+      </if>
+      <if test="record.fpostRealValidate != null" >
+        fpost_real_validate = #{record.fpostRealValidate,jdbcType=BIT},
+      </if>
+      <if test="record.hasPayPwd != null" >
+        has_pay_pwd = #{record.hasPayPwd,jdbcType=BIT},
+      </if>
+      <if test="record.fhasRealValidateTime != null" >
+        fhas_real_validate_time = #{record.fhasRealValidateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.authStatus != null" >
+        auth_status = #{record.authStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.fidentityStatus != null" >
+        fidentity_status = #{record.fidentityStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.fidentityPath != null" >
+        fidentity_path = #{record.fidentityPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fidentityPath2 != null" >
+        fidentity_path2 = #{record.fidentityPath2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fidentityPath3 != null" >
+        fidentity_path3 = #{record.fidentityPath3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memWords != null" >
+        mem_words = #{record.memWords,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fheadImgUrl != null" >
+        fhead_img_url = #{record.fheadImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.token != null" >
+        token = #{record.token,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gagTime != null" >
+        gag_time = #{record.gagTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.walletStatus != null" >
+        wallet_status = #{record.walletStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user
+    set fid = #{record.fid,jdbcType=INTEGER},
+      fnick_name = #{record.fnickName,jdbcType=VARCHAR},
+      freal_name = #{record.frealName,jdbcType=VARCHAR},
+      ftele_phone = #{record.ftelePhone,jdbcType=VARCHAR},
+      femail = #{record.femail,jdbcType=VARCHAR},
+      flogin_password = #{record.floginPassword,jdbcType=VARCHAR},
+      ftrade_password = #{record.ftradePassword,jdbcType=VARCHAR},
+      flogin_name = #{record.floginName,jdbcType=VARCHAR},
+      fold_login_name = #{record.foldLoginName,jdbcType=VARCHAR},
+      fidentity_no = #{record.fidentityNo,jdbcType=VARCHAR},
+      fidentity_type = #{record.fidentityType,jdbcType=INTEGER},
+      fregister_time = #{record.fregisterTime,jdbcType=TIMESTAMP},
+      flast_login_time = #{record.flastLoginTime,jdbcType=TIMESTAMP},
+      flast_update_time = #{record.flastUpdateTime,jdbcType=TIMESTAMP},
+      fhas_real_validate = #{record.fhasRealValidate,jdbcType=BIT},
+      fis_telephone_bind = #{record.fisTelephoneBind,jdbcType=BIT},
+      fis_mail_validate = #{record.fisMailValidate,jdbcType=BIT},
+      fpost_real_validate = #{record.fpostRealValidate,jdbcType=BIT},
+      has_pay_pwd = #{record.hasPayPwd,jdbcType=BIT},
+      fhas_real_validate_time = #{record.fhasRealValidateTime,jdbcType=TIMESTAMP},
+      auth_status = #{record.authStatus,jdbcType=INTEGER},
+      fidentity_status = #{record.fidentityStatus,jdbcType=INTEGER},
+      fidentity_path = #{record.fidentityPath,jdbcType=VARCHAR},
+      fidentity_path2 = #{record.fidentityPath2,jdbcType=VARCHAR},
+      fidentity_path3 = #{record.fidentityPath3,jdbcType=VARCHAR},
+      mem_words = #{record.memWords,jdbcType=VARCHAR},
+      fhead_img_url = #{record.fheadImgUrl,jdbcType=VARCHAR},
+      token = #{record.token,jdbcType=VARCHAR},
+      gag_time = #{record.gagTime,jdbcType=TIMESTAMP},
+      wallet_status = #{record.walletStatus,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dais.model.User" >
+    update user
+    <set >
+      <if test="fnickName != null" >
+        fnick_name = #{fnickName,jdbcType=VARCHAR},
+      </if>
+      <if test="frealName != null" >
+        freal_name = #{frealName,jdbcType=VARCHAR},
+      </if>
+      <if test="ftelePhone != null" >
+        ftele_phone = #{ftelePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="femail != null" >
+        femail = #{femail,jdbcType=VARCHAR},
+      </if>
+      <if test="floginPassword != null" >
+        flogin_password = #{floginPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="ftradePassword != null" >
+        ftrade_password = #{ftradePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="floginName != null" >
+        flogin_name = #{floginName,jdbcType=VARCHAR},
+      </if>
+      <if test="foldLoginName != null" >
+        fold_login_name = #{foldLoginName,jdbcType=VARCHAR},
+      </if>
+      <if test="fidentityNo != null" >
+        fidentity_no = #{fidentityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fidentityType != null" >
+        fidentity_type = #{fidentityType,jdbcType=INTEGER},
+      </if>
+      <if test="fregisterTime != null" >
+        fregister_time = #{fregisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flastLoginTime != null" >
+        flast_login_time = #{flastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flastUpdateTime != null" >
+        flast_update_time = #{flastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fhasRealValidate != null" >
+        fhas_real_validate = #{fhasRealValidate,jdbcType=BIT},
+      </if>
+      <if test="fisTelephoneBind != null" >
+        fis_telephone_bind = #{fisTelephoneBind,jdbcType=BIT},
+      </if>
+      <if test="fisMailValidate != null" >
+        fis_mail_validate = #{fisMailValidate,jdbcType=BIT},
+      </if>
+      <if test="fpostRealValidate != null" >
+        fpost_real_validate = #{fpostRealValidate,jdbcType=BIT},
+      </if>
+      <if test="hasPayPwd != null" >
+        has_pay_pwd = #{hasPayPwd,jdbcType=BIT},
+      </if>
+      <if test="fhasRealValidateTime != null" >
+        fhas_real_validate_time = #{fhasRealValidateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authStatus != null" >
+        auth_status = #{authStatus,jdbcType=INTEGER},
+      </if>
+      <if test="fidentityStatus != null" >
+        fidentity_status = #{fidentityStatus,jdbcType=INTEGER},
+      </if>
+      <if test="fidentityPath != null" >
+        fidentity_path = #{fidentityPath,jdbcType=VARCHAR},
+      </if>
+      <if test="fidentityPath2 != null" >
+        fidentity_path2 = #{fidentityPath2,jdbcType=VARCHAR},
+      </if>
+      <if test="fidentityPath3 != null" >
+        fidentity_path3 = #{fidentityPath3,jdbcType=VARCHAR},
+      </if>
+      <if test="memWords != null" >
+        mem_words = #{memWords,jdbcType=VARCHAR},
+      </if>
+      <if test="fheadImgUrl != null" >
+        fhead_img_url = #{fheadImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="gagTime != null" >
+        gag_time = #{gagTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="walletStatus != null" >
+        wallet_status = #{walletStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dais.model.User" >
+    update user
+    set fnick_name = #{fnickName,jdbcType=VARCHAR},
+      freal_name = #{frealName,jdbcType=VARCHAR},
+      ftele_phone = #{ftelePhone,jdbcType=VARCHAR},
+      femail = #{femail,jdbcType=VARCHAR},
+      flogin_password = #{floginPassword,jdbcType=VARCHAR},
+      ftrade_password = #{ftradePassword,jdbcType=VARCHAR},
+      flogin_name = #{floginName,jdbcType=VARCHAR},
+      fold_login_name = #{foldLoginName,jdbcType=VARCHAR},
+      fidentity_no = #{fidentityNo,jdbcType=VARCHAR},
+      fidentity_type = #{fidentityType,jdbcType=INTEGER},
+      fregister_time = #{fregisterTime,jdbcType=TIMESTAMP},
+      flast_login_time = #{flastLoginTime,jdbcType=TIMESTAMP},
+      flast_update_time = #{flastUpdateTime,jdbcType=TIMESTAMP},
+      fhas_real_validate = #{fhasRealValidate,jdbcType=BIT},
+      fis_telephone_bind = #{fisTelephoneBind,jdbcType=BIT},
+      fis_mail_validate = #{fisMailValidate,jdbcType=BIT},
+      fpost_real_validate = #{fpostRealValidate,jdbcType=BIT},
+      has_pay_pwd = #{hasPayPwd,jdbcType=BIT},
+      fhas_real_validate_time = #{fhasRealValidateTime,jdbcType=TIMESTAMP},
+      auth_status = #{authStatus,jdbcType=INTEGER},
+      fidentity_status = #{fidentityStatus,jdbcType=INTEGER},
+      fidentity_path = #{fidentityPath,jdbcType=VARCHAR},
+      fidentity_path2 = #{fidentityPath2,jdbcType=VARCHAR},
+      fidentity_path3 = #{fidentityPath3,jdbcType=VARCHAR},
+      mem_words = #{memWords,jdbcType=VARCHAR},
+      fhead_img_url = #{fheadImgUrl,jdbcType=VARCHAR},
+      token = #{token,jdbcType=VARCHAR},
+      gag_time = #{gagTime,jdbcType=TIMESTAMP},
+      wallet_status = #{walletStatus,jdbcType=INTEGER}
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dais.mapper.FfeesMapper" >
+  <resultMap id="BaseResultMap" type="com.dais.model.Ffees" >
+    <id column="fid" property="fid" jdbcType="INTEGER" />
+    <result column="ffee" property="ffee" jdbcType="DECIMAL" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="withdraw" property="withdraw" jdbcType="DECIMAL" />
+    <result column="fvir_id" property="fvirId" jdbcType="INTEGER" />
+    <result column="flevel" property="flevel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fid, ffee, version, withdraw, fvir_id, flevel
+  </sql>
+
+
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dais.model.FfeesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ffees
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ffees
+    where fid = #{fid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ffees
+    where fid = #{fid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dais.model.FfeesExample" >
+    delete from ffees
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dais.model.Ffees" >
+    insert into ffees (fid, ffee, version, 
+      withdraw, fvir_id, flevel
+      )
+    values (#{fid,jdbcType=INTEGER}, #{ffee,jdbcType=DECIMAL}, #{version,jdbcType=INTEGER}, 
+      #{withdraw,jdbcType=DECIMAL}, #{fvirId,jdbcType=INTEGER}, #{flevel,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dais.model.Ffees" >
+    insert into ffees
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="ffee != null" >
+        ffee,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="withdraw != null" >
+        withdraw,
+      </if>
+      <if test="fvirId != null" >
+        fvir_id,
+      </if>
+      <if test="flevel != null" >
+        flevel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="ffee != null" >
+        #{ffee,jdbcType=DECIMAL},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="withdraw != null" >
+        #{withdraw,jdbcType=DECIMAL},
+      </if>
+      <if test="fvirId != null" >
+        #{fvirId,jdbcType=INTEGER},
+      </if>
+      <if test="flevel != null" >
+        #{flevel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dais.model.FfeesExample" resultType="java.lang.Integer" >
+    select count(*) from ffees
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ffees
+    <set >
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ffee != null" >
+        ffee = #{record.ffee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.version != null" >
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
+      <if test="record.withdraw != null" >
+        withdraw = #{record.withdraw,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fvirId != null" >
+        fvir_id = #{record.fvirId,jdbcType=INTEGER},
+      </if>
+      <if test="record.flevel != null" >
+        flevel = #{record.flevel,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ffees
+    set fid = #{record.fid,jdbcType=INTEGER},
+      ffee = #{record.ffee,jdbcType=DECIMAL},
+      version = #{record.version,jdbcType=INTEGER},
+      withdraw = #{record.withdraw,jdbcType=DECIMAL},
+      fvir_id = #{record.fvirId,jdbcType=INTEGER},
+      flevel = #{record.flevel,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dais.model.Ffees" >
+    update ffees
+    <set >
+      <if test="ffee != null" >
+        ffee = #{ffee,jdbcType=DECIMAL},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="withdraw != null" >
+        withdraw = #{withdraw,jdbcType=DECIMAL},
+      </if>
+      <if test="fvirId != null" >
+        fvir_id = #{fvirId,jdbcType=INTEGER},
+      </if>
+      <if test="flevel != null" >
+        flevel = #{flevel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dais.model.Ffees" >
+    update ffees
+    set ffee = #{ffee,jdbcType=DECIMAL},
+      version = #{version,jdbcType=INTEGER},
+      withdraw = #{withdraw,jdbcType=DECIMAL},
+      fvir_id = #{fvirId,jdbcType=INTEGER},
+      flevel = #{flevel,jdbcType=INTEGER}
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+</mapper>

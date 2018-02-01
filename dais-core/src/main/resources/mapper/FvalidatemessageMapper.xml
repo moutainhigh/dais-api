@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dais.mapper.FvalidatemessageMapper" >
+  <resultMap id="BaseResultMap" type="com.dais.model.Fvalidatemessage" >
+    <id column="fId" property="fid" jdbcType="INTEGER" />
+    <result column="FUs_fId" property="fusFid" jdbcType="INTEGER" />
+    <result column="fPhone" property="fphone" jdbcType="VARCHAR" />
+    <result column="fStatus" property="fstatus" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="fCreateTime" property="fcreatetime" jdbcType="TIMESTAMP" />
+    <result column="fSendTime" property="fsendtime" jdbcType="TIMESTAMP" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.dais.model.Fvalidatemessage" extends="BaseResultMap" >
+    <result column="fContent" property="fcontent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fId, FUs_fId, fPhone, fStatus, type, fCreateTime, fSendTime, version
+  </sql>
+  <sql id="Blob_Column_List" >
+    fContent
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.dais.model.FvalidatemessageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from fvalidatemessage
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dais.model.FvalidatemessageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fvalidatemessage
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from fvalidatemessage
+    where fId = #{fid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fvalidatemessage
+    where fId = #{fid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dais.model.FvalidatemessageExample" >
+    delete from fvalidatemessage
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dais.model.Fvalidatemessage" >
+    insert into fvalidatemessage (fId, FUs_fId, fPhone, 
+      fStatus, type, fCreateTime, 
+      fSendTime, version, fContent
+      )
+    values (#{fid,jdbcType=INTEGER}, #{fusFid,jdbcType=INTEGER}, #{fphone,jdbcType=VARCHAR}, 
+      #{fstatus,jdbcType=INTEGER}, #{type,jdbcType=TINYINT}, #{fcreatetime,jdbcType=TIMESTAMP}, 
+      #{fsendtime,jdbcType=TIMESTAMP}, #{version,jdbcType=INTEGER}, #{fcontent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dais.model.Fvalidatemessage" >
+    insert into fvalidatemessage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fId,
+      </if>
+      <if test="fusFid != null" >
+        FUs_fId,
+      </if>
+      <if test="fphone != null" >
+        fPhone,
+      </if>
+      <if test="fstatus != null" >
+        fStatus,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="fcreatetime != null" >
+        fCreateTime,
+      </if>
+      <if test="fsendtime != null" >
+        fSendTime,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="fcontent != null" >
+        fContent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="fusFid != null" >
+        #{fusFid,jdbcType=INTEGER},
+      </if>
+      <if test="fphone != null" >
+        #{fphone,jdbcType=VARCHAR},
+      </if>
+      <if test="fstatus != null" >
+        #{fstatus,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="fcreatetime != null" >
+        #{fcreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fsendtime != null" >
+        #{fsendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="fcontent != null" >
+        #{fcontent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dais.model.FvalidatemessageExample" resultType="java.lang.Integer" >
+    select count(*) from fvalidatemessage
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fvalidatemessage
+    <set >
+      <if test="record.fid != null" >
+        fId = #{record.fid,jdbcType=INTEGER},
+      </if>
+      <if test="record.fusFid != null" >
+        FUs_fId = #{record.fusFid,jdbcType=INTEGER},
+      </if>
+      <if test="record.fphone != null" >
+        fPhone = #{record.fphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fstatus != null" >
+        fStatus = #{record.fstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=TINYINT},
+      </if>
+      <if test="record.fcreatetime != null" >
+        fCreateTime = #{record.fcreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fsendtime != null" >
+        fSendTime = #{record.fsendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.version != null" >
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
+      <if test="record.fcontent != null" >
+        fContent = #{record.fcontent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update fvalidatemessage
+    set fId = #{record.fid,jdbcType=INTEGER},
+      FUs_fId = #{record.fusFid,jdbcType=INTEGER},
+      fPhone = #{record.fphone,jdbcType=VARCHAR},
+      fStatus = #{record.fstatus,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=TINYINT},
+      fCreateTime = #{record.fcreatetime,jdbcType=TIMESTAMP},
+      fSendTime = #{record.fsendtime,jdbcType=TIMESTAMP},
+      version = #{record.version,jdbcType=INTEGER},
+      fContent = #{record.fcontent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fvalidatemessage
+    set fId = #{record.fid,jdbcType=INTEGER},
+      FUs_fId = #{record.fusFid,jdbcType=INTEGER},
+      fPhone = #{record.fphone,jdbcType=VARCHAR},
+      fStatus = #{record.fstatus,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=TINYINT},
+      fCreateTime = #{record.fcreatetime,jdbcType=TIMESTAMP},
+      fSendTime = #{record.fsendtime,jdbcType=TIMESTAMP},
+      version = #{record.version,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dais.model.Fvalidatemessage" >
+    update fvalidatemessage
+    <set >
+      <if test="fusFid != null" >
+        FUs_fId = #{fusFid,jdbcType=INTEGER},
+      </if>
+      <if test="fphone != null" >
+        fPhone = #{fphone,jdbcType=VARCHAR},
+      </if>
+      <if test="fstatus != null" >
+        fStatus = #{fstatus,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="fcreatetime != null" >
+        fCreateTime = #{fcreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fsendtime != null" >
+        fSendTime = #{fsendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="fcontent != null" >
+        fContent = #{fcontent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where fId = #{fid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.dais.model.Fvalidatemessage" >
+    update fvalidatemessage
+    set FUs_fId = #{fusFid,jdbcType=INTEGER},
+      fPhone = #{fphone,jdbcType=VARCHAR},
+      fStatus = #{fstatus,jdbcType=INTEGER},
+      type = #{type,jdbcType=TINYINT},
+      fCreateTime = #{fcreatetime,jdbcType=TIMESTAMP},
+      fSendTime = #{fsendtime,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=INTEGER},
+      fContent = #{fcontent,jdbcType=LONGVARCHAR}
+    where fId = #{fid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dais.model.Fvalidatemessage" >
+    update fvalidatemessage
+    set FUs_fId = #{fusFid,jdbcType=INTEGER},
+      fPhone = #{fphone,jdbcType=VARCHAR},
+      fStatus = #{fstatus,jdbcType=INTEGER},
+      type = #{type,jdbcType=TINYINT},
+      fCreateTime = #{fcreatetime,jdbcType=TIMESTAMP},
+      fSendTime = #{fsendtime,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=INTEGER}
+    where fId = #{fid,jdbcType=INTEGER}
+  </update>
+</mapper>

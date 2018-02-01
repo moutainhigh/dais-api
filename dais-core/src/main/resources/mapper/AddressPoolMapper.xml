@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dais.mapper.AddressPoolMapper" >
+  <resultMap id="BaseResultMap" type="com.dais.model.AddressPool" >
+    <id column="fid" property="fid" jdbcType="INTEGER" />
+    <result column="fvi_type" property="fviType" jdbcType="INTEGER" />
+    <result column="faddress" property="faddress" jdbcType="VARCHAR" />
+    <result column="fstatus" property="fstatus" jdbcType="INTEGER" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+
+  <insert id="insertSelective" parameterType="com.dais.model.AddressPool" >
+    insert into fpool
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="fviType != null" >
+        fvi_type,
+      </if>
+      <if test="faddress != null" >
+        faddress,
+      </if>
+      <if test="fstatus != null" >
+        fstatus,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="fviType != null" >
+        #{fviType,jdbcType=INTEGER},
+      </if>
+      <if test="faddress != null" >
+        #{faddress,jdbcType=VARCHAR},
+      </if>
+      <if test="fstatus != null" >
+        #{fstatus,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+
+  <select id="getAssignAddress" resultType="java.lang.String" parameterType="int" statementType="CALLABLE">
+    {call getAddress(#{coinId})}
+  </select>
+
+  <select id="countNormal" resultType="int">
+    SELECT count(id) FROM address_pool WHERE cid=#{coinId} AND status=0
+  </select>
+</mapper>

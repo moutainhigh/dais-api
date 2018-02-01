@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dais.mapper.FvirtualcointypeMapper" >
+  <resultMap id="BaseResultMap" type="com.dais.model.Fvirtualcointype" >
+    <id column="fId" property="fid" jdbcType="INTEGER" />
+    <result column="parentid" property="parentid" jdbcType="INTEGER" />
+    <result column="fName" property="fname" jdbcType="VARCHAR" />
+    <result column="fShortName" property="fshortname" jdbcType="VARCHAR" />
+    <result column="fDescription" property="fdescription" jdbcType="VARCHAR" />
+    <result column="fAddTime" property="faddtime" jdbcType="TIMESTAMP" />
+    <result column="fstatus" property="fstatus" jdbcType="INTEGER" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="fSymbol" property="fsymbol" jdbcType="VARCHAR" />
+    <result column="faccess_key" property="faccessKey" jdbcType="VARCHAR" />
+    <result column="fsecrt_key" property="fsecrtKey" jdbcType="VARCHAR" />
+    <result column="fip" property="fip" jdbcType="VARCHAR" />
+    <result column="fport" property="fport" jdbcType="VARCHAR" />
+    <result column="FIsShare" property="fisshare" jdbcType="BIT" />
+    <result column="FIsWithDraw" property="fiswithdraw" jdbcType="BIT" />
+    <result column="furl" property="furl" jdbcType="VARCHAR" />
+    <result column="fintroUrl" property="fintrourl" jdbcType="VARCHAR" />
+    <result column="fopenPrice" property="fopenprice" jdbcType="DECIMAL" />
+    <result column="ftotalAmount" property="ftotalamount" jdbcType="DECIMAL" />
+    <result column="equityType" property="equitytype" jdbcType="BIT" />
+    <result column="homeShow" property="homeshow" jdbcType="BIT" />
+    <result column="homeOrder" property="homeorder" jdbcType="TINYINT" />
+    <result column="typeOrder" property="typeorder" jdbcType="TINYINT" />
+    <result column="totalOrder" property="totalorder" jdbcType="TINYINT" />
+    <result column="isStarting" property="isstarting" jdbcType="BIT" />
+    <result column="confirm_times" property="confirmTimes" jdbcType="INTEGER" />
+    <result column="contract_address" property="contractAddress" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fId, parentid, fName, fShortName, fDescription, fAddTime, fstatus, version, fSymbol, 
+    faccess_key, fsecrt_key, fip, fport, FIsShare, FIsWithDraw, furl, fintroUrl, fopenPrice, 
+    ftotalAmount, equityType, homeShow, homeOrder, typeOrder, totalOrder, isStarting, 
+    confirm_times, contract_address
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dais.model.FvirtualcointypeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fvirtualcointype
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from fvirtualcointype
+    where fId = #{fid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fvirtualcointype
+    where fId = #{fid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dais.model.FvirtualcointypeExample" >
+    delete from fvirtualcointype
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dais.model.Fvirtualcointype" >
+    insert into fvirtualcointype (fId, parentid, fName, 
+      fShortName, fDescription, fAddTime, 
+      fstatus, version, fSymbol, 
+      faccess_key, fsecrt_key, fip, 
+      fport, FIsShare, FIsWithDraw, 
+      furl, fintroUrl, fopenPrice, 
+      ftotalAmount, equityType, homeShow, 
+      homeOrder, typeOrder, totalOrder, 
+      isStarting, confirm_times, contract_address
+      )
+    values (#{fid,jdbcType=INTEGER}, #{parentid,jdbcType=INTEGER}, #{fname,jdbcType=VARCHAR}, 
+      #{fshortname,jdbcType=VARCHAR}, #{fdescription,jdbcType=VARCHAR}, #{faddtime,jdbcType=TIMESTAMP}, 
+      #{fstatus,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}, #{fsymbol,jdbcType=VARCHAR}, 
+      #{faccessKey,jdbcType=VARCHAR}, #{fsecrtKey,jdbcType=VARCHAR}, #{fip,jdbcType=VARCHAR}, 
+      #{fport,jdbcType=VARCHAR}, #{fisshare,jdbcType=BIT}, #{fiswithdraw,jdbcType=BIT}, 
+      #{furl,jdbcType=VARCHAR}, #{fintrourl,jdbcType=VARCHAR}, #{fopenprice,jdbcType=DECIMAL}, 
+      #{ftotalamount,jdbcType=DECIMAL}, #{equitytype,jdbcType=BIT}, #{homeshow,jdbcType=BIT}, 
+      #{homeorder,jdbcType=TINYINT}, #{typeorder,jdbcType=TINYINT}, #{totalorder,jdbcType=TINYINT}, 
+      #{isstarting,jdbcType=BIT}, #{confirmTimes,jdbcType=INTEGER}, #{contractAddress,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dais.model.Fvirtualcointype" >
+    <selectKey keyProperty='fid' resultType='int' order='AFTER'  >
+      select LAST_INSERT_ID();
+    </selectKey>
+    insert into fvirtualcointype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fId,
+      </if>
+      <if test="parentid != null" >
+        parentid,
+      </if>
+      <if test="fname != null" >
+        fName,
+      </if>
+      <if test="fshortname != null" >
+        fShortName,
+      </if>
+      <if test="fdescription != null" >
+        fDescription,
+      </if>
+      <if test="faddtime != null" >
+        fAddTime,
+      </if>
+      <if test="fstatus != null" >
+        fstatus,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="fsymbol != null" >
+        fSymbol,
+      </if>
+      <if test="faccessKey != null" >
+        faccess_key,
+      </if>
+      <if test="fsecrtKey != null" >
+        fsecrt_key,
+      </if>
+      <if test="fip != null" >
+        fip,
+      </if>
+      <if test="fport != null" >
+        fport,
+      </if>
+      <if test="fisshare != null" >
+        FIsShare,
+      </if>
+      <if test="fiswithdraw != null" >
+        FIsWithDraw,
+      </if>
+      <if test="furl != null" >
+        furl,
+      </if>
+      <if test="fintrourl != null" >
+        fintroUrl,
+      </if>
+      <if test="fopenprice != null" >
+        fopenPrice,
+      </if>
+      <if test="ftotalamount != null" >
+        ftotalAmount,
+      </if>
+      <if test="equitytype != null" >
+        equityType,
+      </if>
+      <if test="homeshow != null" >
+        homeShow,
+      </if>
+      <if test="homeorder != null" >
+        homeOrder,
+      </if>
+      <if test="typeorder != null" >
+        typeOrder,
+      </if>
+      <if test="totalorder != null" >
+        totalOrder,
+      </if>
+      <if test="isstarting != null" >
+        isStarting,
+      </if>
+      <if test="confirmTimes != null" >
+        confirm_times,
+      </if>
+      <if test="contractAddress != null" >
+        contract_address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="fname != null" >
+        #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="fshortname != null" >
+        #{fshortname,jdbcType=VARCHAR},
+      </if>
+      <if test="fdescription != null" >
+        #{fdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="faddtime != null" >
+        #{faddtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fstatus != null" >
+        #{fstatus,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="fsymbol != null" >
+        #{fsymbol,jdbcType=VARCHAR},
+      </if>
+      <if test="faccessKey != null" >
+        #{faccessKey,jdbcType=VARCHAR},
+      </if>
+      <if test="fsecrtKey != null" >
+        #{fsecrtKey,jdbcType=VARCHAR},
+      </if>
+      <if test="fip != null" >
+        #{fip,jdbcType=VARCHAR},
+      </if>
+      <if test="fport != null" >
+        #{fport,jdbcType=VARCHAR},
+      </if>
+      <if test="fisshare != null" >
+        #{fisshare,jdbcType=BIT},
+      </if>
+      <if test="fiswithdraw != null" >
+        #{fiswithdraw,jdbcType=BIT},
+      </if>
+      <if test="furl != null" >
+        #{furl,jdbcType=VARCHAR},
+      </if>
+      <if test="fintrourl != null" >
+        #{fintrourl,jdbcType=VARCHAR},
+      </if>
+      <if test="fopenprice != null" >
+        #{fopenprice,jdbcType=DECIMAL},
+      </if>
+      <if test="ftotalamount != null" >
+        #{ftotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="equitytype != null" >
+        #{equitytype,jdbcType=BIT},
+      </if>
+      <if test="homeshow != null" >
+        #{homeshow,jdbcType=BIT},
+      </if>
+      <if test="homeorder != null" >
+        #{homeorder,jdbcType=TINYINT},
+      </if>
+      <if test="typeorder != null" >
+        #{typeorder,jdbcType=TINYINT},
+      </if>
+      <if test="totalorder != null" >
+        #{totalorder,jdbcType=TINYINT},
+      </if>
+      <if test="isstarting != null" >
+        #{isstarting,jdbcType=BIT},
+      </if>
+      <if test="confirmTimes != null" >
+        #{confirmTimes,jdbcType=INTEGER},
+      </if>
+      <if test="contractAddress != null" >
+        #{contractAddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dais.model.FvirtualcointypeExample" resultType="java.lang.Integer" >
+    select count(*) from fvirtualcointype
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fvirtualcointype
+    <set >
+      <if test="record.fid != null" >
+        fId = #{record.fid,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentid != null" >
+        parentid = #{record.parentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.fname != null" >
+        fName = #{record.fname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fshortname != null" >
+        fShortName = #{record.fshortname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fdescription != null" >
+        fDescription = #{record.fdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.faddtime != null" >
+        fAddTime = #{record.faddtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fstatus != null" >
+        fstatus = #{record.fstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.version != null" >
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
+      <if test="record.fsymbol != null" >
+        fSymbol = #{record.fsymbol,jdbcType=VARCHAR},
+      </if>
+      <if test="record.faccessKey != null" >
+        faccess_key = #{record.faccessKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fsecrtKey != null" >
+        fsecrt_key = #{record.fsecrtKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fip != null" >
+        fip = #{record.fip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fport != null" >
+        fport = #{record.fport,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fisshare != null" >
+        FIsShare = #{record.fisshare,jdbcType=BIT},
+      </if>
+      <if test="record.fiswithdraw != null" >
+        FIsWithDraw = #{record.fiswithdraw,jdbcType=BIT},
+      </if>
+      <if test="record.furl != null" >
+        furl = #{record.furl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fintrourl != null" >
+        fintroUrl = #{record.fintrourl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fopenprice != null" >
+        fopenPrice = #{record.fopenprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.ftotalamount != null" >
+        ftotalAmount = #{record.ftotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.equitytype != null" >
+        equityType = #{record.equitytype,jdbcType=BIT},
+      </if>
+      <if test="record.homeshow != null" >
+        homeShow = #{record.homeshow,jdbcType=BIT},
+      </if>
+      <if test="record.homeorder != null" >
+        homeOrder = #{record.homeorder,jdbcType=TINYINT},
+      </if>
+      <if test="record.typeorder != null" >
+        typeOrder = #{record.typeorder,jdbcType=TINYINT},
+      </if>
+      <if test="record.totalorder != null" >
+        totalOrder = #{record.totalorder,jdbcType=TINYINT},
+      </if>
+      <if test="record.isstarting != null" >
+        isStarting = #{record.isstarting,jdbcType=BIT},
+      </if>
+      <if test="record.confirmTimes != null" >
+        confirm_times = #{record.confirmTimes,jdbcType=INTEGER},
+      </if>
+      <if test="record.contractAddress != null" >
+        contract_address = #{record.contractAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fvirtualcointype
+    set fId = #{record.fid,jdbcType=INTEGER},
+      parentid = #{record.parentid,jdbcType=INTEGER},
+      fName = #{record.fname,jdbcType=VARCHAR},
+      fShortName = #{record.fshortname,jdbcType=VARCHAR},
+      fDescription = #{record.fdescription,jdbcType=VARCHAR},
+      fAddTime = #{record.faddtime,jdbcType=TIMESTAMP},
+      fstatus = #{record.fstatus,jdbcType=INTEGER},
+      version = #{record.version,jdbcType=INTEGER},
+      fSymbol = #{record.fsymbol,jdbcType=VARCHAR},
+      faccess_key = #{record.faccessKey,jdbcType=VARCHAR},
+      fsecrt_key = #{record.fsecrtKey,jdbcType=VARCHAR},
+      fip = #{record.fip,jdbcType=VARCHAR},
+      fport = #{record.fport,jdbcType=VARCHAR},
+      FIsShare = #{record.fisshare,jdbcType=BIT},
+      FIsWithDraw = #{record.fiswithdraw,jdbcType=BIT},
+      furl = #{record.furl,jdbcType=VARCHAR},
+      fintroUrl = #{record.fintrourl,jdbcType=VARCHAR},
+      fopenPrice = #{record.fopenprice,jdbcType=DECIMAL},
+      ftotalAmount = #{record.ftotalamount,jdbcType=DECIMAL},
+      equityType = #{record.equitytype,jdbcType=BIT},
+      homeShow = #{record.homeshow,jdbcType=BIT},
+      homeOrder = #{record.homeorder,jdbcType=TINYINT},
+      typeOrder = #{record.typeorder,jdbcType=TINYINT},
+      totalOrder = #{record.totalorder,jdbcType=TINYINT},
+      isStarting = #{record.isstarting,jdbcType=BIT},
+      confirm_times = #{record.confirmTimes,jdbcType=INTEGER},
+      contract_address = #{record.contractAddress,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dais.model.Fvirtualcointype" >
+    update fvirtualcointype
+    <set >
+      <if test="parentid != null" >
+        parentid = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="fname != null" >
+        fName = #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="fshortname != null" >
+        fShortName = #{fshortname,jdbcType=VARCHAR},
+      </if>
+      <if test="fdescription != null" >
+        fDescription = #{fdescription,jdbcType=VARCHAR},
+      </if>
+      <if test="faddtime != null" >
+        fAddTime = #{faddtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fstatus != null" >
+        fstatus = #{fstatus,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="fsymbol != null" >
+        fSymbol = #{fsymbol,jdbcType=VARCHAR},
+      </if>
+      <if test="faccessKey != null" >
+        faccess_key = #{faccessKey,jdbcType=VARCHAR},
+      </if>
+      <if test="fsecrtKey != null" >
+        fsecrt_key = #{fsecrtKey,jdbcType=VARCHAR},
+      </if>
+      <if test="fip != null" >
+        fip = #{fip,jdbcType=VARCHAR},
+      </if>
+      <if test="fport != null" >
+        fport = #{fport,jdbcType=VARCHAR},
+      </if>
+      <if test="fisshare != null" >
+        FIsShare = #{fisshare,jdbcType=BIT},
+      </if>
+      <if test="fiswithdraw != null" >
+        FIsWithDraw = #{fiswithdraw,jdbcType=BIT},
+      </if>
+      <if test="furl != null" >
+        furl = #{furl,jdbcType=VARCHAR},
+      </if>
+      <if test="fintrourl != null" >
+        fintroUrl = #{fintrourl,jdbcType=VARCHAR},
+      </if>
+      <if test="fopenprice != null" >
+        fopenPrice = #{fopenprice,jdbcType=DECIMAL},
+      </if>
+      <if test="ftotalamount != null" >
+        ftotalAmount = #{ftotalamount,jdbcType=DECIMAL},
+      </if>
+      <if test="equitytype != null" >
+        equityType = #{equitytype,jdbcType=BIT},
+      </if>
+      <if test="homeshow != null" >
+        homeShow = #{homeshow,jdbcType=BIT},
+      </if>
+      <if test="homeorder != null" >
+        homeOrder = #{homeorder,jdbcType=TINYINT},
+      </if>
+      <if test="typeorder != null" >
+        typeOrder = #{typeorder,jdbcType=TINYINT},
+      </if>
+      <if test="totalorder != null" >
+        totalOrder = #{totalorder,jdbcType=TINYINT},
+      </if>
+      <if test="isstarting != null" >
+        isStarting = #{isstarting,jdbcType=BIT},
+      </if>
+      <if test="confirmTimes != null" >
+        confirm_times = #{confirmTimes,jdbcType=INTEGER},
+      </if>
+      <if test="contractAddress != null" >
+        contract_address = #{contractAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where fId = #{fid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dais.model.Fvirtualcointype" >
+    update fvirtualcointype
+    set parentid = #{parentid,jdbcType=INTEGER},
+      fName = #{fname,jdbcType=VARCHAR},
+      fShortName = #{fshortname,jdbcType=VARCHAR},
+      fDescription = #{fdescription,jdbcType=VARCHAR},
+      fAddTime = #{faddtime,jdbcType=TIMESTAMP},
+      fstatus = #{fstatus,jdbcType=INTEGER},
+      version = #{version,jdbcType=INTEGER},
+      fSymbol = #{fsymbol,jdbcType=VARCHAR},
+      faccess_key = #{faccessKey,jdbcType=VARCHAR},
+      fsecrt_key = #{fsecrtKey,jdbcType=VARCHAR},
+      fip = #{fip,jdbcType=VARCHAR},
+      fport = #{fport,jdbcType=VARCHAR},
+      FIsShare = #{fisshare,jdbcType=BIT},
+      FIsWithDraw = #{fiswithdraw,jdbcType=BIT},
+      furl = #{furl,jdbcType=VARCHAR},
+      fintroUrl = #{fintrourl,jdbcType=VARCHAR},
+      fopenPrice = #{fopenprice,jdbcType=DECIMAL},
+      ftotalAmount = #{ftotalamount,jdbcType=DECIMAL},
+      equityType = #{equitytype,jdbcType=BIT},
+      homeShow = #{homeshow,jdbcType=BIT},
+      homeOrder = #{homeorder,jdbcType=TINYINT},
+      typeOrder = #{typeorder,jdbcType=TINYINT},
+      totalOrder = #{totalorder,jdbcType=TINYINT},
+      isStarting = #{isstarting,jdbcType=BIT},
+      confirm_times = #{confirmTimes,jdbcType=INTEGER},
+      contract_address = #{contractAddress,jdbcType=VARCHAR}
+    where fId = #{fid,jdbcType=INTEGER}
+  </update>
+</mapper>

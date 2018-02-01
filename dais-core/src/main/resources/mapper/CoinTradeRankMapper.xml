@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dais.mapper.CoinTradeRankMapper" >
+  <resultMap id="BaseResultMap" type="com.dais.model.CoinTradeRank" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="high" property="high" jdbcType="DECIMAL" />
+    <result column="low" property="low" jdbcType="DECIMAL" />
+    <result column="last" property="last" jdbcType="DECIMAL" />
+    <result column="vol" property="vol" jdbcType="DECIMAL" />
+    <result column="buy" property="buy" jdbcType="DECIMAL" />
+    <result column="sell" property="sell" jdbcType="DECIMAL" />
+    <result column="trade_time" property="tradeTime" jdbcType="INTEGER" />
+    <result column="price_flu" property="priceFlu" jdbcType="VARCHAR" />
+    <result column="coin_type" property="coinType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, high, low, last, vol, buy, sell, trade_time, price_flu, coin_type
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dais.model.CoinTradeRankExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from coin_trade_rank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from coin_trade_rank
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from coin_trade_rank
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dais.model.CoinTradeRankExample" >
+    delete from coin_trade_rank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dais.model.CoinTradeRank" >
+    insert into coin_trade_rank (id, high, low, 
+      last, vol, buy, sell, 
+      trade_time, price_flu, coin_type
+      )
+    values (#{id,jdbcType=INTEGER}, #{high,jdbcType=DECIMAL}, #{low,jdbcType=DECIMAL}, 
+      #{last,jdbcType=DECIMAL}, #{vol,jdbcType=DECIMAL}, #{buy,jdbcType=DECIMAL}, #{sell,jdbcType=DECIMAL}, 
+      #{tradeTime,jdbcType=INTEGER}, #{priceFlu,jdbcType=VARCHAR}, #{coinType,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dais.model.CoinTradeRank" >
+    insert into coin_trade_rank
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="high != null" >
+        high,
+      </if>
+      <if test="low != null" >
+        low,
+      </if>
+      <if test="last != null" >
+        last,
+      </if>
+      <if test="vol != null" >
+        vol,
+      </if>
+      <if test="buy != null" >
+        buy,
+      </if>
+      <if test="sell != null" >
+        sell,
+      </if>
+      <if test="tradeTime != null" >
+        trade_time,
+      </if>
+      <if test="priceFlu != null" >
+        price_flu,
+      </if>
+      <if test="coinType != null" >
+        coin_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="high != null" >
+        #{high,jdbcType=DECIMAL},
+      </if>
+      <if test="low != null" >
+        #{low,jdbcType=DECIMAL},
+      </if>
+      <if test="last != null" >
+        #{last,jdbcType=DECIMAL},
+      </if>
+      <if test="vol != null" >
+        #{vol,jdbcType=DECIMAL},
+      </if>
+      <if test="buy != null" >
+        #{buy,jdbcType=DECIMAL},
+      </if>
+      <if test="sell != null" >
+        #{sell,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeTime != null" >
+        #{tradeTime,jdbcType=INTEGER},
+      </if>
+      <if test="priceFlu != null" >
+        #{priceFlu,jdbcType=VARCHAR},
+      </if>
+      <if test="coinType != null" >
+        #{coinType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dais.model.CoinTradeRankExample" resultType="java.lang.Integer" >
+    select count(*) from coin_trade_rank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update coin_trade_rank
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.high != null" >
+        high = #{record.high,jdbcType=DECIMAL},
+      </if>
+      <if test="record.low != null" >
+        low = #{record.low,jdbcType=DECIMAL},
+      </if>
+      <if test="record.last != null" >
+        last = #{record.last,jdbcType=DECIMAL},
+      </if>
+      <if test="record.vol != null" >
+        vol = #{record.vol,jdbcType=DECIMAL},
+      </if>
+      <if test="record.buy != null" >
+        buy = #{record.buy,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sell != null" >
+        sell = #{record.sell,jdbcType=DECIMAL},
+      </if>
+      <if test="record.tradeTime != null" >
+        trade_time = #{record.tradeTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.priceFlu != null" >
+        price_flu = #{record.priceFlu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coinType != null" >
+        coin_type = #{record.coinType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update coin_trade_rank
+    set id = #{record.id,jdbcType=INTEGER},
+      high = #{record.high,jdbcType=DECIMAL},
+      low = #{record.low,jdbcType=DECIMAL},
+      last = #{record.last,jdbcType=DECIMAL},
+      vol = #{record.vol,jdbcType=DECIMAL},
+      buy = #{record.buy,jdbcType=DECIMAL},
+      sell = #{record.sell,jdbcType=DECIMAL},
+      trade_time = #{record.tradeTime,jdbcType=INTEGER},
+      price_flu = #{record.priceFlu,jdbcType=VARCHAR},
+      coin_type = #{record.coinType,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dais.model.CoinTradeRank" >
+    update coin_trade_rank
+    <set >
+      <if test="high != null" >
+        high = #{high,jdbcType=DECIMAL},
+      </if>
+      <if test="low != null" >
+        low = #{low,jdbcType=DECIMAL},
+      </if>
+      <if test="last != null" >
+        last = #{last,jdbcType=DECIMAL},
+      </if>
+      <if test="vol != null" >
+        vol = #{vol,jdbcType=DECIMAL},
+      </if>
+      <if test="buy != null" >
+        buy = #{buy,jdbcType=DECIMAL},
+      </if>
+      <if test="sell != null" >
+        sell = #{sell,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeTime != null" >
+        trade_time = #{tradeTime,jdbcType=INTEGER},
+      </if>
+      <if test="priceFlu != null" >
+        price_flu = #{priceFlu,jdbcType=VARCHAR},
+      </if>
+      <if test="coinType != null" >
+        coin_type = #{coinType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dais.model.CoinTradeRank" >
+    update coin_trade_rank
+    set high = #{high,jdbcType=DECIMAL},
+      low = #{low,jdbcType=DECIMAL},
+      last = #{last,jdbcType=DECIMAL},
+      vol = #{vol,jdbcType=DECIMAL},
+      buy = #{buy,jdbcType=DECIMAL},
+      sell = #{sell,jdbcType=DECIMAL},
+      trade_time = #{tradeTime,jdbcType=INTEGER},
+      price_flu = #{priceFlu,jdbcType=VARCHAR},
+      coin_type = #{coinType,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

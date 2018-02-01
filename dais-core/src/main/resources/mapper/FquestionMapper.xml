@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dais.mapper.FquestionMapper" >
+  <resultMap id="BaseResultMap" type="com.dais.model.Fquestion" >
+    <id column="fid" property="fid" jdbcType="INTEGER" />
+    <result column="ftype" property="ftype" jdbcType="INTEGER" />
+    <result column="ftelephone" property="ftelephone" jdbcType="VARCHAR" />
+    <result column="fuid" property="fuid" jdbcType="INTEGER" />
+    <result column="fstatus" property="fstatus" jdbcType="INTEGER" />
+    <result column="fcreateTime" property="fcreatetime" jdbcType="TIMESTAMP" />
+    <result column="fsolveTime" property="fsolvetime" jdbcType="TIMESTAMP" />
+    <result column="faid" property="faid" jdbcType="INTEGER" />
+    <result column="fname" property="fname" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.dais.model.FquestionWithBLOBs" extends="BaseResultMap" >
+    <result column="fdesc" property="fdesc" jdbcType="LONGVARCHAR" />
+    <result column="fanswer" property="fanswer" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    fid, ftype, ftelephone, fuid, fstatus, fcreateTime, fsolveTime, faid, fname, version
+  </sql>
+  <sql id="Blob_Column_List" >
+    fdesc, fanswer
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.dais.model.FquestionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from fquestion
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dais.model.FquestionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from fquestion
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from fquestion
+    where fid = #{fid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fquestion
+    where fid = #{fid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dais.model.FquestionExample" >
+    delete from fquestion
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dais.model.FquestionWithBLOBs" >
+    insert into fquestion (fid, ftype, ftelephone, 
+      fuid, fstatus, fcreateTime, 
+      fsolveTime, faid, fname, 
+      version, fdesc, fanswer
+      )
+    values (#{fid,jdbcType=INTEGER}, #{ftype,jdbcType=INTEGER}, #{ftelephone,jdbcType=VARCHAR}, 
+      #{fuid,jdbcType=INTEGER}, #{fstatus,jdbcType=INTEGER}, #{fcreatetime,jdbcType=TIMESTAMP}, 
+      #{fsolvetime,jdbcType=TIMESTAMP}, #{faid,jdbcType=INTEGER}, #{fname,jdbcType=VARCHAR}, 
+      #{version,jdbcType=INTEGER}, #{fdesc,jdbcType=LONGVARCHAR}, #{fanswer,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dais.model.FquestionWithBLOBs" >
+    insert into fquestion
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="ftype != null" >
+        ftype,
+      </if>
+      <if test="ftelephone != null" >
+        ftelephone,
+      </if>
+      <if test="fuid != null" >
+        fuid,
+      </if>
+      <if test="fstatus != null" >
+        fstatus,
+      </if>
+      <if test="fcreatetime != null" >
+        fcreateTime,
+      </if>
+      <if test="fsolvetime != null" >
+        fsolveTime,
+      </if>
+      <if test="faid != null" >
+        faid,
+      </if>
+      <if test="fname != null" >
+        fname,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="fdesc != null" >
+        fdesc,
+      </if>
+      <if test="fanswer != null" >
+        fanswer,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="ftype != null" >
+        #{ftype,jdbcType=INTEGER},
+      </if>
+      <if test="ftelephone != null" >
+        #{ftelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="fuid != null" >
+        #{fuid,jdbcType=INTEGER},
+      </if>
+      <if test="fstatus != null" >
+        #{fstatus,jdbcType=INTEGER},
+      </if>
+      <if test="fcreatetime != null" >
+        #{fcreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fsolvetime != null" >
+        #{fsolvetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="faid != null" >
+        #{faid,jdbcType=INTEGER},
+      </if>
+      <if test="fname != null" >
+        #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="fdesc != null" >
+        #{fdesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="fanswer != null" >
+        #{fanswer,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dais.model.FquestionExample" resultType="java.lang.Integer" >
+    select count(*) from fquestion
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fquestion
+    <set >
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ftype != null" >
+        ftype = #{record.ftype,jdbcType=INTEGER},
+      </if>
+      <if test="record.ftelephone != null" >
+        ftelephone = #{record.ftelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fuid != null" >
+        fuid = #{record.fuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.fstatus != null" >
+        fstatus = #{record.fstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.fcreatetime != null" >
+        fcreateTime = #{record.fcreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fsolvetime != null" >
+        fsolveTime = #{record.fsolvetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.faid != null" >
+        faid = #{record.faid,jdbcType=INTEGER},
+      </if>
+      <if test="record.fname != null" >
+        fname = #{record.fname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.version != null" >
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
+      <if test="record.fdesc != null" >
+        fdesc = #{record.fdesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.fanswer != null" >
+        fanswer = #{record.fanswer,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update fquestion
+    set fid = #{record.fid,jdbcType=INTEGER},
+      ftype = #{record.ftype,jdbcType=INTEGER},
+      ftelephone = #{record.ftelephone,jdbcType=VARCHAR},
+      fuid = #{record.fuid,jdbcType=INTEGER},
+      fstatus = #{record.fstatus,jdbcType=INTEGER},
+      fcreateTime = #{record.fcreatetime,jdbcType=TIMESTAMP},
+      fsolveTime = #{record.fsolvetime,jdbcType=TIMESTAMP},
+      faid = #{record.faid,jdbcType=INTEGER},
+      fname = #{record.fname,jdbcType=VARCHAR},
+      version = #{record.version,jdbcType=INTEGER},
+      fdesc = #{record.fdesc,jdbcType=LONGVARCHAR},
+      fanswer = #{record.fanswer,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fquestion
+    set fid = #{record.fid,jdbcType=INTEGER},
+      ftype = #{record.ftype,jdbcType=INTEGER},
+      ftelephone = #{record.ftelephone,jdbcType=VARCHAR},
+      fuid = #{record.fuid,jdbcType=INTEGER},
+      fstatus = #{record.fstatus,jdbcType=INTEGER},
+      fcreateTime = #{record.fcreatetime,jdbcType=TIMESTAMP},
+      fsolveTime = #{record.fsolvetime,jdbcType=TIMESTAMP},
+      faid = #{record.faid,jdbcType=INTEGER},
+      fname = #{record.fname,jdbcType=VARCHAR},
+      version = #{record.version,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dais.model.FquestionWithBLOBs" >
+    update fquestion
+    <set >
+      <if test="ftype != null" >
+        ftype = #{ftype,jdbcType=INTEGER},
+      </if>
+      <if test="ftelephone != null" >
+        ftelephone = #{ftelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="fuid != null" >
+        fuid = #{fuid,jdbcType=INTEGER},
+      </if>
+      <if test="fstatus != null" >
+        fstatus = #{fstatus,jdbcType=INTEGER},
+      </if>
+      <if test="fcreatetime != null" >
+        fcreateTime = #{fcreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fsolvetime != null" >
+        fsolveTime = #{fsolvetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="faid != null" >
+        faid = #{faid,jdbcType=INTEGER},
+      </if>
+      <if test="fname != null" >
+        fname = #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="fdesc != null" >
+        fdesc = #{fdesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="fanswer != null" >
+        fanswer = #{fanswer,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.dais.model.FquestionWithBLOBs" >
+    update fquestion
+    set ftype = #{ftype,jdbcType=INTEGER},
+      ftelephone = #{ftelephone,jdbcType=VARCHAR},
+      fuid = #{fuid,jdbcType=INTEGER},
+      fstatus = #{fstatus,jdbcType=INTEGER},
+      fcreateTime = #{fcreatetime,jdbcType=TIMESTAMP},
+      fsolveTime = #{fsolvetime,jdbcType=TIMESTAMP},
+      faid = #{faid,jdbcType=INTEGER},
+      fname = #{fname,jdbcType=VARCHAR},
+      version = #{version,jdbcType=INTEGER},
+      fdesc = #{fdesc,jdbcType=LONGVARCHAR},
+      fanswer = #{fanswer,jdbcType=LONGVARCHAR}
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dais.model.Fquestion" >
+    update fquestion
+    set ftype = #{ftype,jdbcType=INTEGER},
+      ftelephone = #{ftelephone,jdbcType=VARCHAR},
+      fuid = #{fuid,jdbcType=INTEGER},
+      fstatus = #{fstatus,jdbcType=INTEGER},
+      fcreateTime = #{fcreatetime,jdbcType=TIMESTAMP},
+      fsolveTime = #{fsolvetime,jdbcType=TIMESTAMP},
+      faid = #{faid,jdbcType=INTEGER},
+      fname = #{fname,jdbcType=VARCHAR},
+      version = #{version,jdbcType=INTEGER}
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+</mapper>
