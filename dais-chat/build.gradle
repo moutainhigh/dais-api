@@ -1,0 +1,84 @@
+group 'com.dais'
+version '1.2-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+
+repositories {
+    jcenter()
+    maven {
+        url  "http://jcenter.bintray.com"
+    }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile project(":dais-core")
+    compile project(":dais-common")
+    compile project(":dais-config")
+
+    testCompile "com.alibaba:fastjson:$fastjsonVersion"
+    compile "org.springframework:spring-beans:$springVersion"
+    compile "org.springframework:spring-aop:$springVersion"
+    compile "org.springframework:spring-aspects:$springVersion"
+
+    compile "org.springframework:spring-context:$springVersion" exclude group:'commons-logging',module:'commons-logging'
+
+    compile "org.springframework:spring-context-support:$springVersion"
+    compile "org.springframework:spring-core:$springVersion"
+    compile "org.springframework:spring-expression:$springVersion"
+    compile "org.springframework:spring-web:$springVersion"
+    compile "org.springframework:spring-webmvc:$springVersion"
+    compile "org.springframework:spring-jdbc:$springVersion"
+
+    compile "org.mybatis:mybatis-spring:$mybatisSpring"
+
+    compile "org.mybatis:mybatis:$mybatisVersion"
+
+    compile "org.slf4j:slf4j-api:$slf4jVersion"
+    compile "org.slf4j:jcl-over-slf4j:$slf4jVersion"
+    compile "org.slf4j:slf4j-log4j12:$slf4jVersion"
+    compile "log4j:log4j:$log4jVersion"
+
+    compile "com.alibaba:druid:$druidVersion"
+
+    compile "mysql:mysql-connector-java:$mysqlVersion"
+
+    compile "org.eclipse.jetty:jetty-webapp:$jettyVersion"
+    compile "org.eclipse.jetty:apache-jsp:$jettyVersion"
+    compile "org.eclipse.jetty:apache-jstl:$jettyVersion"
+    compile "org.eclipse.jetty:jetty-annotations:$jettyVersion"
+
+    compileOnly "javax.servlet:javax.servlet-api:$servletVersion"
+
+    //整合json
+    compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+    compile "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
+    compile "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
+
+    //输入校验
+    compile "javax.validation:validation-api:1.0.0.GA"
+    compile "org.hibernate:hibernate-validator:4.3.2.Final"
+    compile "org.hibernate:hibernate-validator-annotation-processor:4.3.2.Final"
+
+//    redis客户端
+    compile "redis.clients:jedis:$jedisVersion"
+    compile "org.apache.commons:commons-lang3:3.3.2"
+
+//    httpclient
+    compile "org.apache.httpcomponents:httpclient:4.3.5"
+
+    compile "com.alibaba:fastjson:$fastjsonVersion"
+
+    //    文件上传
+    compile "commons-fileupload:commons-fileupload:$commonsFileuploadVersion"
+    compile "javax.websocket:javax.websocket-api:1.0"
+    compile "org.quartz-scheduler:quartz:2.2.3"
+}
+
+//使用UTF-8编译，防止windows下编译出现GBK不可映射字符
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+

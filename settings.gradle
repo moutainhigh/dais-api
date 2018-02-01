@@ -1,0 +1,11 @@
+rootProject.name = 'dais-api'
+include 'dais-app'
+include 'dais-common'
+include 'dais-mybatis-generator'
+include 'dais-core'
+include 'dais-manage'
+include 'dais-schedue'
+include 'dais-push'
+include 'dais-chat'
+include 'dais-config'
+

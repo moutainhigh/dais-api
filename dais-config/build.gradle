@@ -1,0 +1,20 @@
+group 'com.dais'
+version '1.2-SNAPSHOT'
+
+apply plugin: 'java'
+
+repositories {
+    jcenter()
+    maven {
+        url  "http://jcenter.bintray.com"
+    }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+//使用UTF-8编译，防止windows下编译出现GBK不可映射字符
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
