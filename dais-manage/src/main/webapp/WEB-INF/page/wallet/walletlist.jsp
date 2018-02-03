@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>dais管理界面</title>
+    <title>钱包管理界面</title>
     <link rel="stylesheet" href="/resource/layui/src/css/layui.css">
     <style>
         .layui-btn-small i{
@@ -33,9 +33,8 @@
                 <thead>
                 <tr>
                     <th >序号</th>
-                    <th>会员姓名</th>
+                    <th>钱包状态</th>
                     <th>会员手机号</th>
-                    <th>会员昵称</th>
                     <th>虚拟币名称</th>
                     <th>资产总值</th>
                     <th>冻结资金</th>
@@ -58,7 +57,7 @@
     <form class="layui-form" >
         <input type="hidden" id="fid"  placeholder="请输入"  class="layui-input">
         <div class="layui-form-item">
-            <label class="layui-form-label">用户姓名</label>
+            <label class="layui-form-label">登录名</label>
             <div class="layui-input-block">
                 <input type="text" id="username"  disabled="disabled"   class="layui-input">
             </div>
@@ -168,7 +167,7 @@
         $.each(data,function(v,o){
             s+='<tr ><td>'+(v+1+((start-1)*limit))+'</td>';
             s+='<td style="display: none">'+o.fid+'</td>';
-            s+='<td >'+o.freal_name+'</td>';
+            s+='<td style="display: none">'+o.flogin_name+'</td>';
             s+='<td >'+o.flogin_name+'</td>';
             s+='<td >'+o.fnick_name+'</td>';
             s+='<td >'+o.fname+'</td>';

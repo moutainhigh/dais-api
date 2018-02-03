@@ -176,6 +176,18 @@ public class VirtualCoinController {
         return ResultModel.ok(coinList);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/updateWallatOrAddress", method = RequestMethod.POST)
+    public ResultModel updateWallatOrAddress(String token, int symbol, String type){
+        User user = this.userService.queryUser(token);
+        try {
+            return this.userService.updateWallatOrAddress(user.getFid(),symbol,type);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultModel.build(500,"数据异常");
+        }
+    }
+
     /**
      * 查询虚拟币24小时价格
      *

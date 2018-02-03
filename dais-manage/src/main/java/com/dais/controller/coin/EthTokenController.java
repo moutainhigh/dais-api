@@ -54,8 +54,8 @@ public class EthTokenController extends BaseController{
             fvirtualcointype.setFshortname(name);
             fvirtualcointype.setFaccessKey(contractAddress);
             fvirtualcointype.setFsecrtKey(accessPassword);
-            fvirtualcointype.setFip("118.190.132.141");
-            fvirtualcointype.setFport("6969");
+            fvirtualcointype.setFip("127.0.0.1");
+            fvirtualcointype.setFport("9696");
             fvirtualcointype.setFshortname(shortName);
             fvirtualcointype.setFiswithdraw(true);
             fvirtualcointype.setFurl("/upload/others/eth_default.png");
@@ -76,8 +76,8 @@ public class EthTokenController extends BaseController{
             fvirtualcointype.setContractAddress(contractAddress);
             fvirtualcointype.setFaccessKey(contractAddress);
             fvirtualcointype.setFsecrtKey(accessPassword);
-            fvirtualcointype.setFip("118.190.132.141");
-            fvirtualcointype.setFport("6969");
+            fvirtualcointype.setFip("127.0.0.1");
+            fvirtualcointype.setFport("9696");
             fvirtualcointype.setParentid(4);
             fvirtualcointype.setFstatus(1);
             fvirtualcointypeMapper.updateByPrimaryKeySelective(fvirtualcointype);

@@ -6,7 +6,6 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.server.handler.HandlerCollection;
-import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.webapp.Configuration;
 import org.eclipse.jetty.webapp.WebAppContext;
 
@@ -16,13 +15,10 @@ import org.eclipse.jetty.webapp.WebAppContext;
 public class RestStart {
     public static void main(String[] args) throws Exception{
             long startTime = System.currentTimeMillis();
-            int port = 80;
+            int port = 8081;
             if (args.length > 0) {
                 port = Integer.valueOf(args[0]);
             }
-
-            ServletContextHandler servletContext = new ServletContextHandler();
-            servletContext.setContextPath("/");
 
             Server server = new Server();
             ServerConnector connector = new ServerConnector(server);
@@ -30,7 +26,6 @@ public class RestStart {
             server.setConnectors(new Connector[] { connector });
             WebAppContext webapp = new WebAppContext();
             webapp.setContextPath("/");
-
             webapp.setWar(System.getProperty("user.dir") + "/dais-app/src/main/webapp");
 
 
@@ -53,5 +48,6 @@ public class RestStart {
             server.start();
             System.out.printf("server started take %d ms, open your in browser http://localhost:%d\n", (System.currentTimeMillis() - startTime), port);
             server.join();
+
     }
 }

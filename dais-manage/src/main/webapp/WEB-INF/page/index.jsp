@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>dais管理界面</title>
+  <title>钱包管理界面</title>
   <link rel="stylesheet" href="/resource/layui/src/css/layui.css">
 </head>
 <body>

@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>dais管理界面</title>
+    <title>钱包管理界面</title>
     <link rel="stylesheet" href="/resource/layui/src/css/layui.css">
     <style>
         .layui-btn-small i{
@@ -33,7 +33,6 @@
                 <thead>
                 <tr>
                     <th >序号</th>
-                    <th>会员姓名</th>
                     <th>会员手机号</th>
                     <th>虚拟币</th>
                     <th>状态</th>
@@ -41,6 +40,7 @@
                     <th>数量</th>
                     <th>手续费</th>
                     <th>提现地址</th>
+                    <th>交易号</th>
                     <th>创建时间</th>
                     <th>最后修改时间</th>
                     <c:if test="${user_info.roleid < 3}">
@@ -186,7 +186,6 @@
         $.each(data,function(v,o){
             s+='<tr ><td>'+(v+1+((start-1)*limit))+'</td>';
             s+='<td style="display: none">'+o.operationId+'</td>';
-            s+='<td >'+o.userName+'</td>';
             s+='<td >'+o.userPhone+'</td>';
             s+='<td >'+o.coinName+'</td>';
             s+='<td >'+checkStatus(o.status)+'</td>';
@@ -194,6 +193,7 @@
             s+='<td >'+o.amount+'</td>';
             s+='<td>'+o.fees+'</td>';
             s+='<td>'+o.withdrawVirtualAddress+'</td>';
+            s+='<td><input value='+o.ftradeuniquenumber+'></td>';
             s+='<td>'+formatDate(o.createtime)+'</td>';
             s+='<td>'+formatDate(o.lastUpdatetime)+'</td>';
            /* s+='<td><button onclick="edit(this)" class="layui-btn layui-btn-small"><i class="layui-icon">审核</i></button></td></tr>';*/

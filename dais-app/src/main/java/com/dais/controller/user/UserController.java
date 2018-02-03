@@ -1,16 +1,21 @@
 package com.dais.controller.user;
 
 import com.common.constant.CommonConstant;
+import com.common.model.BTCMessage;
+import com.common.utils.BTCUtils;
+import com.common.utils.CollectionUtils;
 import com.common.utils.HashUtil;
 import com.dais.controller.BaseController;
 import com.common.pojo.ResultModel;
 import com.common.utils.ExceptionUtil;
-import com.dais.model.FquestionWithBLOBs;
-import com.dais.model.User;
-import com.dais.model.UserExample;
+import com.dais.mapper.WalletUnlockInfoMapper;
+import com.dais.model.*;
 import com.dais.service.FquestionService;
+import com.dais.service.FvirtualaddressService;
 import com.dais.service.UserService;
+import com.dais.service.VirtualCoinService;
 import com.dais.utils.MemWordsUtil;
+import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,9 +26,9 @@ import org.springframework.web.util.HtmlUtils;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import static javafx.scene.input.KeyCode.F;
 
 /**
  * @author GanZhen
@@ -37,9 +42,14 @@ public class UserController extends BaseController{
 
     @Autowired
     private UserService userService;
-
     @Autowired
     private FquestionService fquestionService;
+    @Autowired
+    private VirtualCoinService virtualCoinService;
+    @Autowired
+    private WalletUnlockInfoMapper walletUnlockInfoMapper;
+    @Autowired
+    private FvirtualaddressService fvirtualaddressService;
 
     @RequestMapping("/test")
     @ResponseBody
@@ -438,9 +448,74 @@ public class UserController extends BaseController{
      */
     @ResponseBody
     @RequestMapping(value = "/getMemWords", method = RequestMethod.POST)
-    public ResultModel getMemWords(String token){
+    public ResultModel getMemWords(String token,String tradePassword){
         User user = this.userService.findByUserId(userService.queryUser(token).getFid());
+        if (!HashUtil.encodePassword(tradePassword).equals(user.getFtradePassword())) {
+            return ResultModel.build(403,"交易密码错误");
+        }
+        if(user.getWalletStatus() == 2){
+            return ResultModel.build(402,"钱包为创建或被删除");
+        }
         return ResultModel.ok(user.getMemWords());
+    }
+
+    /**
+     *
+     * @param token
+     * 备份钱包  获取助记词
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/dumpPrivkey", method = RequestMethod.POST)
+    public ResultModel dumpPrivkey(String token,String address,String tradePassword,int symbol){
+        User user = this.userService.findByUserId(userService.queryUser(token).getFid());
+        try {
+            if (!HashUtil.encodePassword(tradePassword).equals(user.getFtradePassword())) {
+                return ResultModel.build(403, "交易密码错误");
+            }
+            if (user.getWalletStatus() == 2) {
+                return ResultModel.build(402, "钱包为创建或被删除");
+            }
+            Fvirtualcointype fvirtualcointype = this.virtualCoinService.selectByPrimaryKey(symbol);
+            if (fvirtualcointype == null) {
+                return ResultModel.build(403, "币种不存在");
+            }
+            Fvirtualaddress fvirtualaddress = fvirtualaddressService.selectFvaByAddress(address);
+            if(fvirtualaddress == null){
+                return ResultModel.build(403, "非本系统地址");
+            }
+            BTCMessage btcMessage = new BTCMessage();
+            btcMessage.setACCESS_KEY(fvirtualcointype.getFaccessKey());
+            btcMessage.setIP(fvirtualcointype.getFip());
+            btcMessage.setPORT(fvirtualcointype.getFport());
+            btcMessage.setSECRET_KEY(fvirtualcointype.getFsecrtKey());
+            WalletUnlockInfoExample example = new WalletUnlockInfoExample();
+            example.createCriteria().andSymbolEqualTo(fvirtualcointype.getFid());
+            List<WalletUnlockInfo> walletUnlockInfos = walletUnlockInfoMapper.selectByExample(example);
+            String unlockPassword = null;
+            boolean ispass = false;
+            if (!CollectionUtils.isEmpty(walletUnlockInfos)) {
+                unlockPassword = walletUnlockInfos.get(0).getUnlockPassword();
+                ispass = true;
+            }
+            btcMessage.setPASSWORD(unlockPassword);
+
+            if (btcMessage.getACCESS_KEY() == null
+                    || btcMessage.getIP() == null
+                    || btcMessage.getPORT() == null
+                    || btcMessage.getSECRET_KEY() == null) {
+                return ResultModel.build(403, "导出私钥失败，稍后再试");
+            }
+
+            BTCUtils btcUtils = new BTCUtils(btcMessage);
+            JSONObject json = btcUtils.dumpprivkey(address, ispass);
+            if (json != null && json.containsKey("result")){
+                return ResultModel.ok(json.get("result").toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResultModel.build(403, "导出私钥失败，稍后再试");
     }
 
     /**
@@ -671,16 +746,5 @@ public class UserController extends BaseController{
         }
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/updateWallatOrAddress", method = RequestMethod.POST)
-    public ResultModel updateWallatOrAddress(String token, int symbol, String type){
-        User user = this.userService.queryUser(token);
-        try {
-            return this.userService.updateWallatOrAddress(user.getFid(),symbol,type);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResultModel.build(500,"数据异常");
-        }
-    }
 
 }

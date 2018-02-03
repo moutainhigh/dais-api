@@ -36,6 +36,7 @@
 					<a class="" href="javascript:;">虚拟币管理</a>
 					<dl class="layui-nav-child">
 						<dd><a href="/virtualCoin/coinlist">虚拟币类型列表</a></dd>
+						<dd><a href="/virtualCoin/poollist">虚拟币地址管理</a></dd>
 						<dd><a href="/virtualCoin/feeslist">虚拟币提现费率</a></dd>
 						<dd><a href="/captualoperation/captualoperationlist">虚拟币提现记录</a></dd>
 						<dd><a href="/captualoperation/rechargelist">虚拟币充值记录</a></dd>
@@ -53,7 +54,7 @@
 						<dd><a href="/wallet/walletlist">虚拟币资产</a></dd>
 					</dl>
 				</li>
-				<li class="layui-nav-item">
+				<%--<li class="layui-nav-item">
 					<a href="javascript:;">DAIS账户</a>
 					<dl class="layui-nav-child">
 						<dd><a href="/account/accountlist">账户资产</a></dd>
@@ -61,13 +62,13 @@
 					<dl class="layui-nav-child">
 						<dd><a href="/account/optionlist">收支记录</a></dd>
 					</dl>
-				</li>
-				<li class="layui-nav-item">
+				</li>--%>
+			<%--	<li class="layui-nav-item">
 					<a href="javascript:;">聊天室消息</a>
 					<dl class="layui-nav-child">
 						<dd><a href="/chatroom/msglist">消息列表</a></dd>
 					</dl>
-				</li>
+				</li>--%>
 				<li class="layui-nav-item">
 					<a href="javascript:;">系统管理</a>
 					<dl class="layui-nav-child">

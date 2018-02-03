@@ -7,6 +7,7 @@ import com.common.utils.BTCUtils;
 import com.common.utils.CollectionUtils;
 import com.common.utils.Utils;
 import com.dais.controller.BaseController;
+import com.dais.mapper.CommonMapper;
 import com.dais.mapper.FvirtualcointypeMapper;
 import com.dais.model.*;
 import com.dais.service.AddressPoolService;
@@ -46,10 +47,17 @@ public class VirtualCoinController extends BaseController {
     private AddressPoolService addressPoolService;
     @Autowired
     private FeesService feesService;
+    @Autowired
+    private CommonMapper commonMapper;
 
     @RequestMapping("/coinlist")
     public String index(){
         return "/virtualCoin/coinlist";
+    }
+
+    @RequestMapping("/poollist")
+    public String poollist(){
+        return "/virtualCoin/poollist";
     }
 
     @RequestMapping("/getCoinList")
@@ -165,10 +173,29 @@ public class VirtualCoinController extends BaseController {
     }
 
 
+    @RequestMapping("/getPoolList")
+    @ResponseBody
+    public ResultModel getAccountList(int start,int limit,String search){
+        Map map = new HashMap<>();
+        String baseSql = "SELECT t.*,a.fName,a.fShortName,a.fId,a.furl from \n" +
+                "(SELECT v.fName,v.fShortName,v.fId,v.furl from fvirtualcointype v where v.fId=v.parentid and v.FIsWithDraw=1) a LEFT JOIN\n" +
+                "(SELECT COUNT(0) as count,fvi_type from \n" +
+                "(SELECT fvi_type,fstatus from fpool where fstatus=0) k GROUP BY k.fvi_type) t \n" +
+                "on t.fvi_type=a.fid";
+        int begin = (start-1)*limit;
+        String pageSql = " limit "+begin+","+limit;
+        List list = this.commonMapper.getList(baseSql + pageSql);
+        String countSql = "select count(0) from ("+baseSql+ pageSql+") m";
+        int total = this.commonMapper.count(countSql);
+        map.put("list",list);
+        map.put("total",total);
+        return ResultModel.ok(map);
+    }
+
+
     @RequestMapping("/createWalletAddress")
     @ResponseBody
     public ResultModel createWalletAddress(Integer uid,String passWord) throws Exception{
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:sss");
         Fvirtualcointype fvirtualcointype = this.virtualCoinService.selectByPrimaryKey(uid);
 
         if(processCoinAddressLockMap.containsKey(uid)){
@@ -202,10 +229,10 @@ public class VirtualCoinController extends BaseController {
         processCoinAddressLockMap.put(uid, true);
 
         new Thread(() -> {
-            int count = 1;
+            int count = 5;
             try {
                 for(int i=0;i<count;i++){
-                    String address = btcUtils.getNewaddressValueForAdmin(sdf.format(Utils.getTimestamp()));
+                    String address = btcUtils.getNewaddressValueForAdmin(UUID.randomUUID().toString());
                     if(address == null || address.trim().length() ==0){
                         System.err.println("链接钱包，获取" + fvirtualcointype.getFname() + "地址受限！");
                         break;
@@ -233,6 +260,8 @@ public class VirtualCoinController extends BaseController {
 
         return ResultModel.ok("正在生成虚拟地址!");
     }
+
+
 
     @RequestMapping("/testWalletConnect")
     @ResponseBody

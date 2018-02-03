@@ -23,8 +23,8 @@
     <import resource="classpath*:applicationContext-quartz6.xml"/>
     <import resource="classpath*:applicationContext-quartz7.xml"/>
     <import resource="classpath*:applicationContext-quartz8.xml"/>
-    <import resource="classpath*:applicationContext-quartz9.xml"/>
-    <import resource="classpath*:applicationContext-quartz10.xml"/>
+    <!--<import resource="classpath*:applicationContext-quartz9.xml"/>
+    <import resource="classpath*:applicationContext-quartz10.xml"/>-->
     <!--<import resource="classpath*:applicationContext-task.xml"/>-->
 
     <!--后台注解扫描-->
