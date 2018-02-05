@@ -686,18 +686,14 @@ public class VirtualCoinController {
             User user = userService.queryUser(token);
             Fvirtualwallet fvirtualwallet = this.fvirtualwalletService.selectFvirtualwallet(user.getFid(),symbol);
             data.put("total", fvirtualwallet == null ? 0 : fvirtualwallet.getFtotal());
-            data.put("frozen", fvirtualwallet == null ? 0 : fvirtualwallet.getFfrozen());
-            Fvirtualcointype fvct = this.virtualCoinService.selectByPrimaryKey(symbol);
-            data.put("fopenprice",fvct.getFopenprice());
             Fees fees = this.feesService.selectFees(symbol);
             if(fees == null){
                 return  ResultModel.build(500,"数据异常");
             }
             data.put("symbol",fees.getSymbol());
-            data.put("minfees",fees.getMinfees());
-            data.put("maxfees",fees.getMaxfees());
+            data.put("minfees",convert2(fees.getMinfees(),6));
+            data.put("maxfees",convert2(fees.getMaxfees(),4));
             data.put("unit",fees.getUnit());
-            data.put("rate",fees.getRate());
             return ResultModel.ok(data);
         } catch (Exception e) {
             logger.error("返回虚拟币提现地址出错："+e);

@@ -467,7 +467,7 @@ public class UserController extends BaseController{
      */
     @ResponseBody
     @RequestMapping(value = "/dumpPrivkey", method = RequestMethod.POST)
-    public ResultModel dumpPrivkey(String token,String address,String tradePassword,int symbol){
+    public ResultModel dumpPrivkey(String token,String tradePassword,int symbol){
         User user = this.userService.findByUserId(userService.queryUser(token).getFid());
         try {
             if (!HashUtil.encodePassword(tradePassword).equals(user.getFtradePassword())) {
@@ -480,9 +480,9 @@ public class UserController extends BaseController{
             if (fvirtualcointype == null) {
                 return ResultModel.build(403, "币种不存在");
             }
-            Fvirtualaddress fvirtualaddress = fvirtualaddressService.selectFvaByAddress(address);
+            Fvirtualaddress fvirtualaddress = fvirtualaddressService.selectFvirtualAddress(user.getFid(),symbol);
             if(fvirtualaddress == null){
-                return ResultModel.build(403, "非本系统地址");
+                return ResultModel.build(403, "该钱包还未生成地址");
             }
             BTCMessage btcMessage = new BTCMessage();
             btcMessage.setACCESS_KEY(fvirtualcointype.getFaccessKey());
@@ -508,9 +508,12 @@ public class UserController extends BaseController{
             }
 
             BTCUtils btcUtils = new BTCUtils(btcMessage);
-            JSONObject json = btcUtils.dumpprivkey(address, ispass);
+            JSONObject json = btcUtils.dumpprivkey(fvirtualaddress.getFadderess(), ispass);
             if (json != null && json.containsKey("result")){
-                return ResultModel.ok(json.get("result").toString());
+                Map map = new HashMap();
+                map.put("address",fvirtualaddress.getFadderess());
+                map.put("privkey",json.get("result").toString());
+                return ResultModel.ok(map);
             }
         } catch (Exception e) {
             e.printStackTrace();

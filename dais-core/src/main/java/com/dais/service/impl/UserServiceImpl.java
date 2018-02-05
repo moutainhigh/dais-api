@@ -422,7 +422,8 @@ public class UserServiceImpl implements UserService {
         user.setHasPayPwd(true);
         List<Fvirtualwallet> fvirtualwallets = this.fvirtualwalletService.listFvirtualwallet(user.getFid());
         if(CollectionUtils.isEmpty(fvirtualwallets)){
-            userMapper.updateByPrimaryKeySelective(user);
+            user2.setWalletStatus(1);
+            userMapper.updateByPrimaryKeySelective(user2);
             //为用户生成比特币钱包和以太坊钱包
             creteWallet(user);
         }else {
