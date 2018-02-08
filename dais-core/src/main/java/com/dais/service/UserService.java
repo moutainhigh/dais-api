@@ -57,4 +57,5 @@ public interface UserService {
     ResultModel commonUploadAuthImg(String token, MultipartFile multipartFile) throws IOException;
 
     User selectByExampe(UserExample example);
+
 }

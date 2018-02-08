@@ -51,13 +51,19 @@ public class UserController extends BaseController{
     @Autowired
     private FvirtualaddressService fvirtualaddressService;
 
-    @RequestMapping("/test")
+    @RequestMapping("/isExistPhone")
     @ResponseBody
-    public Object testMethod(){
-        Map<String,String> map = new HashMap<String, String>();
-        map.put("aaa","aaa123");
-        map.put("bbb","bbb123");
-        return map;
+    public ResultModel isExistPhone(String phone){
+        if (StringUtils.isEmpty(phone)){
+            return ResultModel.build(403,"手机号码不能为空");
+        }
+        UserExample example = new UserExample();
+        example.createCriteria().andFloginNameEqualTo(phone);
+        User user = this.userService.selectByExampe(example);
+        if(user == null){
+            return ResultModel.ok();
+        }
+        return ResultModel.build(403,"手机号码已存在");
     }
 
 

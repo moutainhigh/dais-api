@@ -76,6 +76,7 @@
 			<mvc:mapping path="/**"/>
 
 			<mvc:exclude-mapping path="/user/login"/>
+			<mvc:exclude-mapping path="/user/isExistPhone"/>
 			<mvc:exclude-mapping path="/user/relogin"/>
 			<mvc:exclude-mapping path="/user/register"/>
 			<mvc:exclude-mapping path="/user/checkWallet"/>
