@@ -617,6 +617,9 @@ public class UserController extends BaseController{
             return ResultModel.build(403,"两次密码不一致");
         }
         User user = this.userService.findByUserId(this.userService.queryUser(token).getFid());
+        if(user.getWalletStatus() == 2){
+            return ResultModel.build(403,"钱包已经创建");
+        }
         user.setFtradePassword(HashUtil.encodePassword(tradepass));
         user.setHasPayPwd(true);
         user.setMemWords(MemWordsUtil.createMemWords());
