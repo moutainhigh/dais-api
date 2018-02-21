@@ -221,6 +221,12 @@ public class UserController extends BaseController{
         return ResultModel.build(401, "验证的失败无效的token，请登录");
     }
 
+    @RequestMapping("/invalidWallet")
+    @ResponseBody
+    public ResultModel invalidWallet() {
+        return ResultModel.build(4012, "钱包未创建或已删除");
+    }
+
     @RequestMapping("/checkWallet")
     @ResponseBody
     public ResultModel checkWallet() {

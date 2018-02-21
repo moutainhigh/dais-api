@@ -25,7 +25,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 			return false;
 		}
 		if(user.getWalletStatus() == 2 && request.getRequestURL().indexOf("/virtualCoin/") > 0){
-			response.sendRedirect(request.getContextPath() + "/user/relogin");
+			response.sendRedirect(request.getContextPath() + "/user/invalidWallet");
 			return false;
 		}
 
