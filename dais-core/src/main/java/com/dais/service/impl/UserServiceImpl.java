@@ -413,13 +413,14 @@ public class UserServiceImpl implements UserService {
     public ResultModel createWallet(String token, String memWords) {
         User user = this.queryUser(token);
         User user2 = userMapper.selectByPrimaryKey(user.getFid());
-        if(user2.getWalletStatus() == 1){
+        if(user.getWalletStatus() == 1){
             return ResultModel.build(403,"已经存在钱包，不能再次创建");
         }
-        if(!memWords.trim().equals(user2.getMemWords())){
+        String temp = jedisClient.get("mem:"+user.getFid() + ":key");
+        if(!memWords.trim().equals(temp)){
             return ResultModel.build(403,"助记词不正确");
         }
-        user.setHasPayPwd(true);
+        user2.setHasPayPwd(true);
         List<Fvirtualwallet> fvirtualwallets = this.fvirtualwalletService.listFvirtualwallet(user.getFid());
         if(CollectionUtils.isEmpty(fvirtualwallets)){
             user2.setWalletStatus(1);
@@ -431,10 +432,10 @@ public class UserServiceImpl implements UserService {
             if(user2.getWalletStatus() == 2){
                 user.setToken(com.dais.utils.Utils.getMD5_32(new Date().getTime()+""));
                 this.userMapper.updateByPrimaryKeySelective(user);
-                removeUserByToken(token);
                 user2.setFid(null);
                 user2.setWalletStatus(1);
-                user2.setMemWords(memWords);
+                user2.setMemWords(temp);
+                user2.setFtradePassword(jedisClient.get("password:"+user.getFid() + ":key"));
                 this.userMapper.insertSelective(user2);
                 creteWallet(user2);
             }

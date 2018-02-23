@@ -2,18 +2,16 @@ package com.dais.controller.user;
 
 import com.common.constant.CommonConstant;
 import com.common.model.BTCMessage;
-import com.common.utils.BTCUtils;
-import com.common.utils.CollectionUtils;
-import com.common.utils.HashUtil;
+import com.common.utils.*;
 import com.dais.controller.BaseController;
 import com.common.pojo.ResultModel;
-import com.common.utils.ExceptionUtil;
 import com.dais.mapper.WalletUnlockInfoMapper;
 import com.dais.model.*;
 import com.dais.service.FquestionService;
 import com.dais.service.FvirtualaddressService;
 import com.dais.service.UserService;
 import com.dais.service.VirtualCoinService;
+import com.dais.utils.JedisClient;
 import com.dais.utils.MemWordsUtil;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
@@ -50,6 +48,8 @@ public class UserController extends BaseController{
     private WalletUnlockInfoMapper walletUnlockInfoMapper;
     @Autowired
     private FvirtualaddressService fvirtualaddressService;
+    @Autowired
+    private JedisClient jedisClient;
 
     @RequestMapping("/isExistPhone")
     @ResponseBody
@@ -628,9 +628,9 @@ public class UserController extends BaseController{
         }
         user.setFtradePassword(HashUtil.encodePassword(tradepass));
         user.setHasPayPwd(true);
-        user.setMemWords(MemWordsUtil.createMemWords());
-        String memWords = user.getMemWords();
-        this.userService.updateUser(user,token);
+        String memWords = MemWordsUtil.createMemWords();
+        jedisClient.set("mem:"+user.getFid() + ":key", memWords);
+        jedisClient.set("password:"+user.getFid() + ":key", user.getFtradePassword());
         return ResultModel.ok(memWords);
     }
     /**
