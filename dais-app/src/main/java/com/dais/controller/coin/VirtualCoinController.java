@@ -51,8 +51,6 @@ public class VirtualCoinController {
     @Autowired
     private CoinTradeRankService coinTradeRankService;
     @Autowired
-    private FmessageMapper fmessageMapper;
-    @Autowired
     private CommonParamsService commonParamsService;
     @Autowired
     private FeesService feesService;
