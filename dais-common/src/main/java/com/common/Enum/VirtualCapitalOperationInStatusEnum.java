@@ -9,11 +9,11 @@ public class VirtualCapitalOperationInStatusEnum {
 	public static String getEnumString(int value) {
 		String name = "";
 		if(value == WAIT_0){
-			name = "0/项确认";
+			name = "0/次确认";
 		}else if(value == WAIT_1){
-			name = "1/项确认";
+			name = "1/次确认";
 		}else if(value == WAIT_2){
-			name = "2/项确认";
+			name = "2/次确认";
 		}else if(value == SUCCESS){
 			name = "充值成功";
 		}

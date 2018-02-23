@@ -68,7 +68,7 @@ public class CaptualoperationpushSchedue {
         map.put("coinName",fvct.getFshortname());
         map.put("tradeuniquenumber",fvirtualcaptualoperation.getFtradeuniquenumber());
         map.put("blocknumber",fvirtualcaptualoperation.getBlockindex());
-        map.put("fconfirmations",fvirtualcaptualoperation.getFconfirmations()+"项确认");
+        map.put("fconfirmations",fvirtualcaptualoperation.getFconfirmations()+"次确认");
         if(fvirtualcaptualoperation.getFtype() == 1){//此时自己为收款方
             map.put("receiveaddress",this.fvirtualcaptualoperationService.getTradeAddress(fvirtualcaptualoperation));
             map.put("sendtoaddress",this.fvirtualcaptualoperationService.getTradeToAddress(fvirtualcaptualoperation));

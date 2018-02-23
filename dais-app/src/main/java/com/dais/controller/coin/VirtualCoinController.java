@@ -477,7 +477,7 @@ public class VirtualCoinController {
                 map.put("coinName",fvct.getFshortname());
                 map.put("tradeuniquenumber",fvco.getFtradeuniquenumber());
                 map.put("blocknumber",fvco.getBlockindex());
-                map.put("fconfirmations",fvco.getFconfirmations()+"项确认");
+                map.put("fconfirmations",fvco.getFconfirmations()+"次确认");
                 if(fvco.getFtype() == 1){//此时自己为收款方
                     map.put("receiveaddress",this.fvirtualcaptualoperationService.getTradeAddress(fvco));
                     map.put("sendtoaddress",this.fvirtualcaptualoperationService.getTradeToAddress(fvco));
@@ -536,7 +536,7 @@ public class VirtualCoinController {
                 map.put("ffees",fvco.getFfees());
                 map.put("coinName",fvct.getFshortname());
                 map.put("tradeuniquenumber",fvco.getFtradeuniquenumber());
-                map.put("fconfirmations",fvco.getFconfirmations()+"项确认");
+                map.put("fconfirmations",fvco.getFconfirmations()+"次确认");
                 map.put("blocknumber","");
                 if(fvco.getFtype() == 1){//此时自己为收款方
                     map.put("receiveaddress",this.fvirtualcaptualoperationService.getTradeAddress(fvco));
@@ -592,7 +592,7 @@ public class VirtualCoinController {
                 map.put("fstatus",fvco.getFstatus());
                 map.put("fcreatetime",fvco.getFcreatetime());
                 map.put("ffees",fvco.getFfees());
-                map.put("fconfirmations",fvco.getFconfirmations()+"项确认");
+                map.put("fconfirmations",fvco.getFconfirmations()+"次确认");
                 String tradeuniquenumber = fvco.getFtradeuniquenumber();
                 if(!StringUtils.isEmpty(tradeuniquenumber) && tradeuniquenumber.indexOf("-") > -1){
                     tradeuniquenumber = tradeuniquenumber.substring(0,tradeuniquenumber.indexOf("-"));
@@ -635,7 +635,7 @@ public class VirtualCoinController {
             map.put("fstatus",fvco.getFstatus());
             map.put("fcreatetime",fvco.getFcreatetime());
             map.put("ffees",fvco.getFfees());
-            map.put("fconfirmations",fvco.getFconfirmations()+"项确认");
+            map.put("fconfirmations",fvco.getFconfirmations()+"次确认");
             map.put("isSystemAccount",fvco.getIsSystemAccount() ? 1 : 2);
             String tradeuniquenumber = fvco.getFtradeuniquenumber();
             if(!StringUtils.isEmpty(tradeuniquenumber) && tradeuniquenumber.indexOf("-") > -1){
