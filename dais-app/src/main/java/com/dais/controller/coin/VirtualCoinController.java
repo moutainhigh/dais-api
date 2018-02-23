@@ -1,7 +1,6 @@
 package com.dais.controller.coin;
 
 import com.common.Enum.VirtualCoinTypeStatusEnum;
-import com.common.constant.CommonConstant;
 import com.common.pojo.ResultModel;
 import com.common.utils.CollectionUtils;
 import com.common.utils.ConstantKeys;
@@ -26,7 +25,6 @@ import java.math.BigDecimal;
 import java.util.*;
 
 import static com.common.utils.MathUtils.convert2;
-import static com.sun.xml.internal.ws.api.model.wsdl.WSDLBoundOperation.ANONYMOUS.required;
 
 /**
  * 招股金服

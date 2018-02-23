@@ -3,7 +3,7 @@
 
 <beans>
         <!-- 要调用的工作类 ,分成自动程序-->
-        <bean id="quartzJob9" class="com.dais.auto.RedPacketDrawback"></bean>
+        <bean id="quartzJob9" class="com.dais.auto.AutoReadWithdrawBlocks"></bean>
         <!-- 定义调用对象和调用对象的方法 -->
         <bean id="jobtask9" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
             <!-- 调用的类 -->
@@ -12,7 +12,7 @@
             </property>
             <!-- 调用类中的方法 -->
             <property name="targetMethod">
-                <value>run</value>
+                <value>work</value>
             </property>
         </bean>
         <!-- 定义触发时间 -->

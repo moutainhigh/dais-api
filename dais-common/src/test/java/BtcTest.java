@@ -1,3 +1,4 @@
+import com.common.model.BTCInfo;
 import com.common.model.BTCMessage;
 import com.common.utils.BTCUtils;
 import net.sf.json.JSONObject;
@@ -19,12 +20,12 @@ public class BtcTest {
 
 //        btcMessage.setPORT("6969");
         btcMessage.setPORT("9596");
-        btcMessage.setACCESS_KEY("u");
-        btcMessage.setSECRET_KEY("p");
-        btcMessage.setPASSWORD("123123");
+        btcMessage.setACCESS_KEY("bthuser");
+        btcMessage.setSECRET_KEY("bthpassword");
+        btcMessage.setPASSWORD("111111");
         System.out.println(new Date());
         BTCUtils btcUtils = new BTCUtils(btcMessage);
-//       BTCInfo btcInfo =  btcUtils.gettransactionValue("0xc2f2d905a066b1a5aba74288fae8d0d40e4cb3c6b0dae104fc6824d99a8d4ed8-0x2a03824e7542d9bec007bbac4d5d47290fd02811","receive");
+       BTCInfo btcInfo =  btcUtils.gettransactionValue("70a51b1449f334649f5cfad5f949555b8a742e14f0e27312cb00513f956b8b35","send");
         try {
 //            JSONObject json = btcUtils.getInfo();
 //            JSONObject jsonObject = btcUtils.settxfee(0.1/226 *1024);//每kb交易费
@@ -32,9 +33,9 @@ public class BtcTest {
 //                    || !"true".equals(jsonObject.get("result").toString())){
 //                System.out.println("************************");
 //            }
-            String json  = btcUtils.sendfromValue(btcUtils.getaccountValue("BqAJ2h47MQVUfMG9hU23BEUqWTN7Qe9Uun"),"BUdm6FSe11ZdorKpd8cXNV1awBrmEAAUW2",2,"aaa");
+//            String json  = btcUtils.sendfromValue(btcUtils.getaccountValue("BqAJ2h47MQVUfMG9hU23BEUqWTN7Qe9Uun"),"BUdm6FSe11ZdorKpd8cXNV1awBrmEAAUW2",2,"aaa");
 //            String json =  btcUtils.sendtoaddressValue("BUdm6FSe11ZdorKpd8cXNV1awBrmEAAUW2",2,"aaa");
-            System.out.println(json);
+//            System.out.println(json);
         } catch (Exception e) {
             e.printStackTrace();
         }
