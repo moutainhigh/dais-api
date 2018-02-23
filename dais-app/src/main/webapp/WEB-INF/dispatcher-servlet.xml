@@ -83,6 +83,7 @@
 			<mvc:exclude-mapping path="/user/authCode"/>
 			<mvc:exclude-mapping path="/user/resetPassword"/>
 			<mvc:exclude-mapping path="/user/isBind"/>
+			<mvc:exclude-mapping path="/user/invalidWallet"/>
 			<mvc:exclude-mapping path="/virtualCoin/get24HourPrice"/>
 			<mvc:exclude-mapping path="/virtualCoin/getuser4coin"/>
 
