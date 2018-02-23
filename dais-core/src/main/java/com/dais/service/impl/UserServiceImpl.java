@@ -305,19 +305,13 @@ public class UserServiceImpl implements UserService {
             return ResultModel.build(403,"验证码错误");
         }
         User user2 = userMapper.selectByPrimaryKey(user.getFid());
-        String password = user2.getFloginPassword();
-
-        if(password != null && password.equals(encodePassword((oldPassword)))){
-            user.setFloginPassword(encodePassword(newPassword));
-            int count = userMapper.updateByPrimaryKeySelective(user);
-            if(count < 1){
-                return ResultModel.build(500,"数据异常");
-            }
-        }else{
-            return ResultModel.build(403,"原始密码错误");
+        user2.setFloginPassword(encodePassword(newPassword));
+        int count = userMapper.updateByPrimaryKeySelective(user2);
+        if(count < 1){
+            return ResultModel.build(500,"数据异常");
         }
-        user.setFloginPassword(null);
-        this.freshRedisUserInfo(token,user);
+        user2.setFloginPassword(null);
+        this.freshRedisUserInfo(token,user2);
         return ResultModel.ok();
     }
 
