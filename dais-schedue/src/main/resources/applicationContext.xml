@@ -19,6 +19,7 @@
     <import resource="classpath*:spring/applicationContext-mybatis.xml"/>
     <import resource="classpath*:spring/applicationContext-tx.xml"/>
     <import resource="classpath*:spring/applicationContext-jedis.xml"/>
+    <import resource="classpath*:applicationContext-quartz4.xml"/>
     <import resource="classpath*:applicationContext-quartz5.xml"/>
     <import resource="classpath*:applicationContext-quartz6.xml"/>
     <import resource="classpath*:applicationContext-quartz7.xml"/>
