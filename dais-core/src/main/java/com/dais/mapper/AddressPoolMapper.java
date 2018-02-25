@@ -6,7 +6,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface AddressPoolMapper {
-
     int insertSelective(AddressPool record);
-    String getAssignAddress(Integer sysmbol);
+
+    List<AddressPool> selectByExample(AddressPoolExample example);
+
+    String getAssignAddress(Integer symbol);
+
+    int countNormal(Integer symbol);
 }

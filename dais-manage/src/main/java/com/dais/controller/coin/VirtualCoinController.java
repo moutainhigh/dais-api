@@ -1,10 +1,13 @@
 package com.dais.controller.coin;
 
+import com.alibaba.fastjson.JSONArray;
+import com.common.Enum.RippleIdEnum;
 import com.common.constant.FilePathConstant;
 import com.common.model.BTCMessage;
 import com.common.pojo.ResultModel;
 import com.common.utils.BTCUtils;
 import com.common.utils.CollectionUtils;
+import com.common.utils.HttpUtils;
 import com.common.utils.Utils;
 import com.dais.controller.BaseController;
 import com.dais.mapper.CommonMapper;
@@ -197,70 +200,92 @@ public class VirtualCoinController extends BaseController {
     @ResponseBody
     public ResultModel createWalletAddress(Integer uid,String passWord) throws Exception{
         Fvirtualcointype fvirtualcointype = this.virtualCoinService.selectByPrimaryKey(uid);
-
-        if(processCoinAddressLockMap.containsKey(uid)){
-            return ResultModel.build(403,"正在生成虚拟地址!");
+        if(fvirtualcointype == null){
+            return ResultModel.build(403,"id不正确!");
         }
-
-        if(!fvirtualcointype.getFiswithdraw()){
-            return ResultModel.build(403,"不允许充值和提现的虚拟币类型不能生成虚拟地址!");
-        }
-        BTCMessage btcMessage = new BTCMessage() ;
-        btcMessage.setACCESS_KEY(fvirtualcointype.getFaccessKey()) ;
-        btcMessage.setIP(fvirtualcointype.getFip()) ;
-        btcMessage.setPORT(fvirtualcointype.getFport()) ;
-        btcMessage.setSECRET_KEY(fvirtualcointype.getFsecrtKey()) ;
-        btcMessage.setPASSWORD(passWord);
-        if(btcMessage.getACCESS_KEY()==null
-                ||btcMessage.getIP()==null
-                ||btcMessage.getPORT()==null
-                ||btcMessage.getSECRET_KEY()==null){
-            return ResultModel.build(403,"钱包连接失败，请检查配置信息");
-        }
-
-        BTCUtils btcUtils = new BTCUtils(btcMessage);
-        try {
-            btcUtils.getbalanceValue();
-        } catch (Exception e) {
-            return ResultModel.build(403,"钱包连接失败，请检查配置信息");
-        }
-
-        // 生成地址上锁
-        processCoinAddressLockMap.put(uid, true);
-
-        new Thread(() -> {
-            int count = 5;
-            try {
-                for(int i=0;i<count;i++){
-                    String address = btcUtils.getNewaddressValueForAdmin(UUID.randomUUID().toString());
-                    if(address == null || address.trim().length() ==0){
-                        System.err.println("链接钱包，获取" + fvirtualcointype.getFname() + "地址受限！");
-                        break;
-                    }
-                    System.out.println(address);
-                    AddressPool addressPool = new AddressPool();
-                    addressPool.setFaddress(address);
-                    System.out.println("address:"+address);
-                    addressPool.setFviType(uid);
-                    addressPool.setFstatus(0);
-                    addressPool.setVersion(0);
-                    addressPoolService.insertAddressPool(addressPool);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }finally{
+        int count = 10;
+        if(RippleIdEnum.ripple_id == uid){
+            new Thread(() -> {
                 try {
-                    btcUtils.walletlock();
+                    for(int i=0;i<count;i++){
+                        String result = HttpUtils.sendGetRequest("http://"+fvirtualcointype.getFip()+":"+fvirtualcointype.getFport()+"/getAddress",null);
+                        JSONObject jsonObject = JSONObject.fromObject(result);
+                        AddressPool addressPool = new AddressPool();
+                        addressPool.setFaddress(jsonObject.get("address").toString());
+                        addressPool.setPrivkey(jsonObject.get("secret").toString());
+                        addressPool.setFviType(uid);
+                        addressPool.setFstatus(0);
+                        addressPool.setVersion(0);
+                        addressPoolService.insertAddressPool(addressPool);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
+                }finally{
+                    processCoinAddressLockMap.remove(uid);
                 }
-                processCoinAddressLockMap.remove(uid);
+            }).start();
+        }else {
+            if(processCoinAddressLockMap.containsKey(uid)){
+                return ResultModel.build(403,"正在生成虚拟地址!");
             }
-        }).start();
 
+            if(!fvirtualcointype.getFiswithdraw()){
+                return ResultModel.build(403,"不允许充值和提现的虚拟币类型不能生成虚拟地址!");
+            }
+            BTCMessage btcMessage = new BTCMessage() ;
+            btcMessage.setACCESS_KEY(fvirtualcointype.getFaccessKey()) ;
+            btcMessage.setIP(fvirtualcointype.getFip()) ;
+            btcMessage.setPORT(fvirtualcointype.getFport()) ;
+            btcMessage.setSECRET_KEY(fvirtualcointype.getFsecrtKey()) ;
+            btcMessage.setPASSWORD(passWord);
+            if(btcMessage.getACCESS_KEY()==null
+                    ||btcMessage.getIP()==null
+                    ||btcMessage.getPORT()==null
+                    ||btcMessage.getSECRET_KEY()==null){
+                return ResultModel.build(403,"钱包连接失败，请检查配置信息");
+            }
+
+            BTCUtils btcUtils = new BTCUtils(btcMessage);
+            try {
+                btcUtils.getbalanceValue();
+            } catch (Exception e) {
+                return ResultModel.build(403,"钱包连接失败，请检查配置信息");
+            }
+
+            // 生成地址上锁
+            processCoinAddressLockMap.put(uid, true);
+
+            new Thread(() -> {
+                try {
+                    for(int i=0;i<count;i++){
+                        String address = btcUtils.getNewaddressValueForAdmin(UUID.randomUUID().toString());
+                        if(address == null || address.trim().length() ==0){
+                            System.err.println("链接钱包，获取" + fvirtualcointype.getFname() + "地址受限！");
+                            break;
+                        }
+                        System.out.println(address);
+                        AddressPool addressPool = new AddressPool();
+                        addressPool.setFaddress(address);
+                        System.out.println("address:"+address);
+                        addressPool.setFviType(uid);
+                        addressPool.setFstatus(0);
+                        addressPool.setVersion(0);
+                        addressPoolService.insertAddressPool(addressPool);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }finally{
+                    try {
+                        btcUtils.walletlock();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    processCoinAddressLockMap.remove(uid);
+                }
+            }).start();
+        }
         return ResultModel.ok("正在生成虚拟地址!");
     }
-
 
 
     @RequestMapping("/testWalletConnect")

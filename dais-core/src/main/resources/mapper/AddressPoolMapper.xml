@@ -7,6 +7,7 @@
     <result column="faddress" property="faddress" jdbcType="VARCHAR" />
     <result column="fstatus" property="fstatus" jdbcType="INTEGER" />
     <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="privkey" property="privkey" jdbcType="VARCHAR" />
   </resultMap>
 
   <insert id="insertSelective" parameterType="com.dais.model.AddressPool" >
@@ -27,6 +28,9 @@
       <if test="version != null" >
         version,
       </if>
+      <if test="privkey != null" >
+        privkey,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="fid != null" >
@@ -43,6 +47,9 @@
       </if>
       <if test="version != null" >
         #{version,jdbcType=INTEGER},
+      </if>
+      <if test="privkey != null" >
+        #{privkey,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>

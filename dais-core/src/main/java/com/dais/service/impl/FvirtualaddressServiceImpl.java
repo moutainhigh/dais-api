@@ -62,6 +62,14 @@ public class FvirtualaddressServiceImpl implements FvirtualaddressService{
     }
 
     @Override
+    public List<Fvirtualaddress> listFvirtualAddressBySymbol(Integer symbol) {
+        FvirtualaddressExample fvirtualaddressExample = new FvirtualaddressExample();
+        fvirtualaddressExample.createCriteria().andFviFidEqualTo(symbol);
+        List<Fvirtualaddress> fvaList = this.fvirtualaddressMapper.selectByExample(fvirtualaddressExample);
+        return fvaList;
+    }
+
+    @Override
     public List<Fvirtualaddress> listFvirtualAddress(Integer userId) {
         FvirtualaddressExample fvirtualaddressExample = new FvirtualaddressExample();
         fvirtualaddressExample.createCriteria().andFuidEqualTo(userId);

@@ -16,7 +16,7 @@ public interface FvirtualaddressService {
     Fvirtualaddress selectFvaByAddress(String address);
     List<Fvirtualaddress> listFvirtualAddress(Integer userId);
     List<Fvirtualaddress> listFvirtualAddress(Integer userId, Integer symbol);
-
+    List<Fvirtualaddress> listFvirtualAddressBySymbol(Integer symbol);
     Fvirtualaddress updateAssignWalletAddress(long userId, int coinId) throws Exception;
 
     List<Fvirtualaddress> findFvirtualaddress(String address,Integer symbol);

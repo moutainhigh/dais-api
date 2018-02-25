@@ -11,6 +11,8 @@ public class AddressPool {
 
     private Integer version;
 
+    private String privkey;
+
     public Integer getFid() {
         return fid;
     }
@@ -49,5 +51,13 @@ public class AddressPool {
 
     public void setVersion(Integer version) {
         this.version = version;
+    }
+
+    public String getPrivkey() {
+        return privkey;
+    }
+
+    public void setPrivkey(String privkey) {
+        this.privkey = privkey == null ? null : privkey.trim();
     }
 }

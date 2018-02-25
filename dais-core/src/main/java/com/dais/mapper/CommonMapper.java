@@ -14,4 +14,5 @@ import java.util.Map;
 public interface CommonMapper {
     List<Map> getList(@Param("sql") String sql);
     Integer count(@Param("sql") String sql);
+    Integer update(@Param("sql") String sql);
 }

@@ -413,6 +413,76 @@ public class AddressPoolExample {
             addCriterion("version not between", value1, value2, "version");
             return (Criteria) this;
         }
+
+        public Criteria andPrivkeyIsNull() {
+            addCriterion("privkey is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrivkeyIsNotNull() {
+            addCriterion("privkey is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrivkeyEqualTo(String value) {
+            addCriterion("privkey =", value, "privkey");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrivkeyNotEqualTo(String value) {
+            addCriterion("privkey <>", value, "privkey");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrivkeyGreaterThan(String value) {
+            addCriterion("privkey >", value, "privkey");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrivkeyGreaterThanOrEqualTo(String value) {
+            addCriterion("privkey >=", value, "privkey");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrivkeyLessThan(String value) {
+            addCriterion("privkey <", value, "privkey");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrivkeyLessThanOrEqualTo(String value) {
+            addCriterion("privkey <=", value, "privkey");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrivkeyLike(String value) {
+            addCriterion("privkey like", value, "privkey");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrivkeyNotLike(String value) {
+            addCriterion("privkey not like", value, "privkey");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrivkeyIn(List<String> values) {
+            addCriterion("privkey in", values, "privkey");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrivkeyNotIn(List<String> values) {
+            addCriterion("privkey not in", values, "privkey");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrivkeyBetween(String value1, String value2) {
+            addCriterion("privkey between", value1, value2, "privkey");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrivkeyNotBetween(String value1, String value2) {
+            addCriterion("privkey not between", value1, value2, "privkey");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
